@@ -1,0 +1,19 @@
+gene_symbol,tissue,chromosome,position_mb,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+CXCL8,lung,4,74.6,4.12,0.000038,up,false,Highlights neutrophil recruitment and cytokine amplification in pulmonary sepsis context.,cytokine_signaling;innate_immune_regulation
+STAT1,lung,2,191.7,3.88,0.0001,up,false,Supports interferon and JAK-STAT activation in injured lung tissue.,interferon_jak_stat;cytokine_signaling
+IFITM3,lung,11,31.4,3.56,0.00037,up,false,Adds interferon-response support within the lung host-response profile.,interferon_jak_stat
+IL6R,lung,1,154.4,3.34,0.00084,up,false,Suggests IL-6 linked inflammatory signaling remains prominent in lung tissue.,cytokine_signaling
+MMP9,lung,20,46.1,3.09,0.002,up,false,Links extracellular matrix stress and pulmonary injury remodeling.,endothelial_activation
+ICAM1,lung,19,10.3,2.95,0.0032,up,false,Supports endothelial-leukocyte adhesion in inflamed lung vasculature.,endothelial_activation
+VCAM1,lung,1,101.3,2.81,0.0049,up,false,Extends adhesion molecule support in lung injury and capillary leak.,endothelial_activation
+TNFAIP3,lung,6,138.2,2.69,0.0072,up,false,Reflects inflammatory feedback regulation inside lung tissue response.,cytokine_signaling
+SOCS3,lung,17,76.4,2.57,0.0101,up,false,Adds JAK-STAT negative-feedback context to lung host-response biology.,interferon_jak_stat
+NFKBIA,lung,14,35.8,2.44,0.0145,up,false,Indicates NF-kappaB feedback regulation during pulmonary sepsis.,cytokine_signaling
+HIF1A,lung,14,62.1,2.32,0.0202,up,false,Provides hypoxic stress adaptation support in injured lung tissue.,innate_immune_regulation
+KDR,lung,4,56.0,2.21,0.027,up,false,Suggests VEGF-endothelial signaling support in capillary stress.,endothelial_activation
+SELP,lung,1,169.5,2.13,0.033,up,false,Adds endothelial adhesion support with lower significance.,endothelial_activation
+CASP8,lung,2,202.1,2.04,0.0415,up,false,Links apoptotic stress to lung host-response signaling.,innate_immune_regulation
+TLR4,lung,9,117.7,1.98,0.0474,up,false,Supports innate immune sensing pressure in pulmonary infection.,innate_immune_regulation
+JAK2,lung,9,5.1,1.91,0.0561,up,false,Adds lower-confidence support around JAK-linked signaling.,interferon_jak_stat
+PTGS2,lung,1,186.7,1.83,0.067,up,false,Reflects inflammatory mediator synthesis with lower-confidence support.,cytokine_signaling
+ANGPT2,lung,8,6.4,1.75,0.0797,up,false,Provides weaker endothelial leak support in lung-focused evidence.,endothelial_activation

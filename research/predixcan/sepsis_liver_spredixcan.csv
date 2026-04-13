@@ -1,0 +1,19 @@
+gene_symbol,tissue,chromosome,position_mb,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+HMOX1,liver,22,35.2,4.06,0.000049,up,false,Supports oxidative stress adaptation and heme metabolism pressure in septic liver response.,innate_immune_regulation
+IL10,liver,1,206.8,3.71,0.00021,up,false,Highlights immunoregulatory signaling within hepatic host-response context.,cytokine_signaling;innate_immune_regulation
+STAT3,liver,17,42.3,3.42,0.00063,up,false,Adds acute-phase and cytokine signaling support in liver tissue.,cytokine_signaling
+SERPINA1,liver,14,94.8,3.19,0.0014,up,false,Reflects acute-phase response and protease control in systemic infection.,innate_immune_regulation
+SOCS3,liver,17,76.4,2.96,0.0031,up,false,Supports cytokine-response feedback in hepatic tissue.,interferon_jak_stat;cytokine_signaling
+PTGS2,liver,1,186.7,2.84,0.0045,up,false,Adds inflammatory mediator synthesis support within the liver profile.,cytokine_signaling
+NFKBIA,liver,14,35.8,2.68,0.0073,up,false,Suggests active NF-kappaB feedback regulation in hepatic inflammation.,cytokine_signaling
+TNFAIP3,liver,6,138.2,2.55,0.0108,up,false,Indicates inflammatory feedback control in septic liver tissue.,cytokine_signaling
+MMP9,liver,20,46.1,2.41,0.0158,up,false,Links extracellular matrix injury and tissue stress in sepsis.,endothelial_activation
+CXCL8,liver,4,74.6,2.29,0.0221,up,false,Adds neutrophil chemotaxis support in liver-associated inflammatory tone.,cytokine_signaling
+ICAM1,liver,19,10.3,2.21,0.0272,up,false,Supports adhesion biology at the hepatic endothelium interface.,endothelial_activation
+VCAM1,liver,1,101.3,2.16,0.0306,up,false,Extends endothelial activation support in liver-associated inflammation.,endothelial_activation
+TLR2,liver,4,154.6,2.08,0.0376,up,false,Provides innate sensing support for pathogen-driven hepatic inflammation.,innate_immune_regulation
+CASP8,liver,2,202.1,1.99,0.0469,up,false,Suggests apoptotic stress context with weaker support in liver tissue.,innate_immune_regulation
+KDR,liver,4,56.0,1.92,0.0545,up,false,Adds lower-confidence endothelial signaling support.,endothelial_activation
+SELE,liver,1,169.6,1.87,0.0612,up,false,Reflects weaker adhesion biology in hepatic inflammation.,endothelial_activation
+JAK2,liver,9,5.1,1.81,0.0704,up,false,Provides lower-confidence JAK-linked signaling context.,interferon_jak_stat
+ANGPT2,liver,8,6.4,1.73,0.0832,up,false,Adds low-level support for vascular leak biology in systemic sepsis.,endothelial_activation

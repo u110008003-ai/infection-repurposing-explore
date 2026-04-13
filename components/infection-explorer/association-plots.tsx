@@ -1,54 +1,88 @@
-import type { AnalysisResult, GeneAssociationPoint, QQPoint } from "@/lib/infection-explorer";
+"use client";
+
+import { useState } from "react";
+import type { AnalysisResult, GeneAssociationPoint, QQPoint, TissueAssociationVisual } from "@/lib/infection-explorer";
 
 type Props = {
   visuals: NonNullable<AnalysisResult["association_visuals"]>;
 };
 
-const plotHeight = 240;
-const plotWidth = 760;
+const plotHeight = 260;
+const plotWidth = 860;
 const margin = { top: 18, right: 18, bottom: 34, left: 42 };
 
 export function AssociationPlots({ visuals }: Props) {
+  const availableTissues = visuals.tissues;
+  const [selectedTissue, setSelectedTissue] = useState(visuals.default_tissue);
+  const activeVisual =
+    availableTissues.find((entry) => entry.tissue === selectedTissue) ?? availableTissues[0];
+
+  if (!activeVisual) {
+    return null;
+  }
+
   return (
     <section className="grid gap-4">
-      <div className="max-w-3xl">
+      <div className="max-w-4xl">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Association visual summaries</p>
         <h2 className="mt-2 text-2xl font-semibold text-slate-950">PrediXcan / TWAS style plots</h2>
         <p className="mt-3 text-sm leading-7 text-slate-600">
-          These figures are generated from imported summary-level gene association results. They support publication-style review without claiming individual-level expression prediction performance.
+          The main reading view is the Manhattan plot. QQ remains available as a diagnostic check for association inflation or calibration, but it is intentionally secondary because it is usually less useful for clinician-facing interpretation.
         </p>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-2">
-        <PlotCard
-          title="Gene Manhattan plot"
-          description="Imported gene-level associations arranged by chromosome with a Bonferroni-style threshold."
-        >
-          <ManhattanPlot
-            points={visuals.gene_associations}
-            significanceThreshold={visuals.significance_threshold_logp}
-          />
-        </PlotCard>
+      <div className="flex flex-wrap gap-2">
+        {availableTissues.map((entry) => {
+          const isActive = entry.tissue === activeVisual.tissue;
 
-        <PlotCard
-          title="QQ plot"
-          description="Observed versus expected -log10(P) from imported association results."
-        >
-          <QQPlot points={visuals.qq_points} />
-        </PlotCard>
+          return (
+            <button
+              key={entry.tissue}
+              type="button"
+              onClick={() => setSelectedTissue(entry.tissue)}
+              className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+                isActive
+                  ? "border-cyan-500 bg-cyan-50 text-cyan-900"
+                  : "border-[color:var(--color-line)] bg-white text-slate-700 hover:border-cyan-300"
+              }`}
+            >
+              {humanizeTissue(entry.tissue)}
+            </button>
+          );
+        })}
       </div>
 
       <PlotCard
-        title="Chromosome hit burden"
-        description="Number of imported associated genes per chromosome in the current evidence file."
+        title={`${humanizeTissue(activeVisual.tissue)} Manhattan plot`}
+        description={`${activeVisual.source_label}. Labels are limited to the most significant top hits so the plot stays readable.`}
       >
-        <ChromosomeBurdenPlot points={visuals.gene_associations} />
+        <ManhattanPlot
+          points={activeVisual.gene_associations}
+          significanceThreshold={activeVisual.significance_threshold_logp}
+          labeledGenes={activeVisual.labeled_genes}
+        />
       </PlotCard>
 
+      <div className="grid gap-4 xl:grid-cols-[0.95fr_1.05fr]">
+        <PlotCard
+          title="Chromosome hit burden"
+          description="A quick way to see whether imported signals are concentrated into a few chromosomes or distributed more broadly."
+        >
+          <ChromosomeBurdenPlot points={activeVisual.gene_associations} />
+        </PlotCard>
+
+        <PlotCard
+          title="Diagnostic QQ plot"
+          description="Kept as a secondary QC-style view. Useful for checking deviation from the null, but not usually the main figure for bedside interpretation."
+        >
+          <QQPlot points={activeVisual.qq_points} />
+        </PlotCard>
+      </div>
+
       <div className="rounded-[1.6rem] border border-amber-200 bg-amber-50 p-4">
-        <p className="text-sm font-semibold text-amber-950">About expression scatter plots</p>
+        <p className="text-sm font-semibold text-amber-950">Why the old Manhattan looked sparse</p>
         <p className="mt-2 text-sm leading-7 text-amber-900">
-          Predicted-versus-observed expression scatter plots require individual-level model evaluation or held-out expression data. The current app uses summary-level PrediXcan/TWAS outputs, so it renders Manhattan and QQ style summaries honestly and leaves sample-level scatter out of the default product flow.
+          The earlier demo only loaded a small whole-blood seed file, so each Manhattan plot had very few imported gene-level points. This version adds tissue-specific imported result sets and keeps the structure ready for full exported MetaXcan or S-PrediXcan files with many more genes.
         </p>
       </div>
     </section>
@@ -68,6 +102,7 @@ function PlotCard(props: { title: string; description: string; children: React.R
 function ManhattanPlot(props: {
   points: GeneAssociationPoint[];
   significanceThreshold: number;
+  labeledGenes: string[];
 }) {
   const domainMaxY = Math.max(
     props.significanceThreshold + 1,
@@ -95,7 +130,7 @@ function ManhattanPlot(props: {
   const innerHeight = plotHeight - margin.top - margin.bottom;
 
   return (
-    <svg viewBox={`0 0 ${plotWidth} ${plotHeight}`} className="min-w-[720px]">
+    <svg viewBox={`0 0 ${plotWidth} ${plotHeight}`} className="min-w-[780px]">
       <rect x="0" y="0" width={plotWidth} height={plotHeight} rx="22" fill="#f8fbfd" />
 
       {[0, 2, 4, 6, 8, 10].map((tick) => {
@@ -126,12 +161,12 @@ function ManhattanPlot(props: {
         const yValue = -Math.log10(point.p_value);
         const y = margin.top + innerHeight - (yValue / domainMaxY) * innerHeight;
         const fill = point.chromosome % 2 === 0 ? "#0f172a" : "#64748b";
-        const isTopHit = visualsTopHit(props.points) === point.gene_symbol;
+        const shouldLabel = props.labeledGenes.includes(point.gene_symbol);
 
         return (
           <g key={`${point.gene_symbol}-${index}`}>
-            <circle cx={x} cy={y} r={isTopHit ? 3.4 : 2.2} fill={fill} opacity={0.9} />
-            {isTopHit ? (
+            <circle cx={x} cy={y} r={shouldLabel ? 3.4 : 2.3} fill={fill} opacity={0.9} />
+            {shouldLabel ? (
               <text x={x + 5} y={y - 6} fontSize="10" fill="#0f172a">
                 {point.gene_symbol}
               </text>
@@ -174,7 +209,7 @@ function QQPlot(props: { points: QQPoint[] }) {
   const innerHeight = plotHeight - margin.top - margin.bottom;
 
   return (
-    <svg viewBox={`0 0 ${plotWidth} ${plotHeight}`} className="min-w-[720px]">
+    <svg viewBox={`0 0 ${plotWidth} ${plotHeight}`} className="min-w-[780px]">
       <rect x="0" y="0" width={plotWidth} height={plotHeight} rx="22" fill="#f8fbfd" />
       <line
         x1={margin.left}
@@ -212,7 +247,7 @@ function ChromosomeBurdenPlot(props: { points: GeneAssociationPoint[] }) {
   const barWidth = innerWidth / counts.length - 6;
 
   return (
-    <svg viewBox={`0 0 ${plotWidth} ${plotHeight}`} className="min-w-[720px]">
+    <svg viewBox={`0 0 ${plotWidth} ${plotHeight}`} className="min-w-[780px]">
       <rect x="0" y="0" width={plotWidth} height={plotHeight} rx="22" fill="#f8fbfd" />
       {counts.map((entry, index) => {
         const height = (entry.count / maxCount) * innerHeight;
@@ -237,6 +272,9 @@ function ChromosomeBurdenPlot(props: { points: GeneAssociationPoint[] }) {
   );
 }
 
-function visualsTopHit(points: GeneAssociationPoint[]) {
-  return [...points].sort((left, right) => left.p_value - right.p_value)[0]?.gene_symbol;
+function humanizeTissue(tissue: TissueAssociationVisual["tissue"]) {
+  return tissue
+    .split("_")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 }

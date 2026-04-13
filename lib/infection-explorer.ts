@@ -139,6 +139,16 @@ export type QQPoint = {
   observed: number;
 };
 
+export type TissueAssociationVisual = {
+  tissue: string;
+  source_label: string;
+  gene_associations: GeneAssociationPoint[];
+  qq_points: QQPoint[];
+  significance_threshold_logp: number;
+  top_hit_gene?: string;
+  labeled_genes: string[];
+};
+
 export type DrugGeneLink = {
   gene_symbol: string;
   link_type: "direct_target" | "pathway_overlap" | "transcriptomic_rescue";
@@ -194,10 +204,8 @@ export type AnalysisResult = {
     pathways: PathwayEvidence[];
   };
   association_visuals?: {
-    gene_associations: GeneAssociationPoint[];
-    qq_points: QQPoint[];
-    significance_threshold_logp: number;
-    top_hit_gene?: string;
+    tissues: TissueAssociationVisual[];
+    default_tissue: string;
   };
   evidence_sources?: Array<{
     label: string;

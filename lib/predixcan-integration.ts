@@ -23,6 +23,7 @@ import {
   type PredictedRole,
   type QQPoint,
   type RankedCandidate,
+  type TissueAssociationVisual,
   type UseContext,
 } from "@/lib/infection-explorer";
 import {
@@ -34,6 +35,7 @@ import {
 type PredixcanManifest = {
   datasets: Array<{
     caseType: CaseType;
+    tissue: string;
     label: string;
     sourceType: "PrediXcan" | "S-PrediXcan" | "TWAS";
     dataset: string;
@@ -52,6 +54,7 @@ type PredixcanRow = {
   direction: "up" | "down" | "mixed";
   source_type: "PrediXcan" | "S-PrediXcan" | "TWAS";
   source_dataset: string;
+  source_label: string;
   colocalization_supported: boolean;
   interpretation: string;
   pathways: string[];
@@ -61,10 +64,8 @@ type ImportedEvidence = {
   host_genes: MechanisticGene[];
   pathways: PathwayEvidence[];
   association_visuals: {
-    gene_associations: GeneAssociationPoint[];
-    qq_points: QQPoint[];
-    significance_threshold_logp: number;
-    top_hit_gene?: string;
+    tissues: TissueAssociationVisual[];
+    default_tissue: string;
   };
   evidence_sources: AnalysisResult["evidence_sources"];
 };
@@ -125,6 +126,7 @@ function readDatasetRows(caseType: CaseType): PredixcanRow[] {
       direction: (row.direction as PredixcanRow["direction"]) || "mixed",
       source_type: dataset.sourceType,
       source_dataset: dataset.dataset,
+      source_label: dataset.label,
       colocalization_supported: parseBoolean(row.colocalization_supported),
       interpretation: row.interpretation,
       pathways: row.pathways ? row.pathways.split(";").map((entry) => entry.trim()).filter(Boolean) : [],
@@ -194,39 +196,56 @@ function buildImportedEvidence(caseType: CaseType): ImportedEvidence | null {
     })
     .slice(0, 6);
 
-  const geneAssociations: GeneAssociationPoint[] = rows
-    .filter((row) => Number.isFinite(row.chromosome) && Number.isFinite(row.position_mb))
-    .map((row) => ({
-      gene_symbol: row.gene_symbol,
-      chromosome: row.chromosome,
-      position_mb: row.position_mb,
-      p_value: row.p_value,
-      z_score: row.z_score,
-      source_type: row.source_type,
-    }))
-    .sort((left, right) =>
-      left.chromosome === right.chromosome
-        ? left.position_mb - right.position_mb
-        : left.chromosome - right.chromosome,
-    );
+  const tissueVisuals: TissueAssociationVisual[] = matchedDatasets
+    .map((dataset) => {
+      const tissueRows = rows.filter((row) => row.tissue === dataset.tissue);
+      const geneAssociations: GeneAssociationPoint[] = tissueRows
+        .filter((row) => Number.isFinite(row.chromosome) && Number.isFinite(row.position_mb))
+        .map((row) => ({
+          gene_symbol: row.gene_symbol,
+          chromosome: row.chromosome,
+          position_mb: row.position_mb,
+          p_value: row.p_value,
+          z_score: row.z_score,
+          source_type: row.source_type,
+        }))
+        .sort((left, right) =>
+          left.chromosome === right.chromosome
+            ? left.position_mb - right.position_mb
+            : left.chromosome - right.chromosome,
+        );
 
-  const qqPoints: QQPoint[] = rows
-    .map((row) => row.p_value)
-    .filter((pvalue) => pvalue > 0 && Number.isFinite(pvalue))
-    .sort((left, right) => left - right)
-    .map((pvalue, index, values) => ({
-      expected: -Math.log10((index + 1) / (values.length + 1)),
-      observed: -Math.log10(pvalue),
-    }));
+      const qqPoints: QQPoint[] = tissueRows
+        .map((row) => row.p_value)
+        .filter((pvalue) => pvalue > 0 && Number.isFinite(pvalue))
+        .sort((left, right) => left - right)
+        .map((pvalue, index, values) => ({
+          expected: -Math.log10((index + 1) / (values.length + 1)),
+          observed: -Math.log10(pvalue),
+        }));
+
+      return {
+        tissue: dataset.tissue,
+        source_label: dataset.label,
+        gene_associations: geneAssociations,
+        qq_points: qqPoints,
+        significance_threshold_logp: -Math.log10(0.05 / Math.max(geneAssociations.length, 1)),
+        top_hit_gene: tissueRows[0]?.gene_symbol,
+        labeled_genes: tissueRows
+          .filter((row) => row.p_value <= 0.02)
+          .sort((left, right) => left.p_value - right.p_value)
+          .slice(0, 4)
+          .map((row) => row.gene_symbol),
+      };
+    })
+    .filter((entry) => entry.gene_associations.length > 0);
 
   return {
     host_genes,
     pathways,
     association_visuals: {
-      gene_associations: geneAssociations,
-      qq_points: qqPoints,
-      significance_threshold_logp: -Math.log10(0.05 / Math.max(geneAssociations.length, 1)),
-      top_hit_gene: rows[0]?.gene_symbol,
+      tissues: tissueVisuals,
+      default_tissue: tissueVisuals[0]?.tissue ?? matchedDatasets[0]?.tissue ?? "whole_blood",
     },
     evidence_sources: matchedDatasets.map((dataset) => ({
       label: dataset.label,
@@ -427,20 +446,28 @@ function fallbackEvidence(caseRecord: ExplorerCase): ImportedEvidence {
     host_genes,
     pathways,
     association_visuals: {
-      gene_associations: host_genes.map((gene, index) => ({
-        gene_symbol: gene.gene_symbol,
-        chromosome: index + 1,
-        position_mb: 10 + index * 12,
-        p_value: gene.p_value,
-        z_score: gene.z_score,
-        source_type: gene.source_type === "RNAseq" ? "TWAS" : gene.source_type,
-      })),
-      qq_points: host_genes.map((gene, index, genes) => ({
-        expected: -Math.log10((index + 1) / (genes.length + 1)),
-        observed: -Math.log10(gene.p_value),
-      })),
-      significance_threshold_logp: -Math.log10(0.05 / Math.max(host_genes.length, 1)),
-      top_hit_gene: host_genes[0]?.gene_symbol,
+      tissues: [
+        {
+          tissue: "whole_blood",
+          source_label: "Fallback evidence seed",
+          gene_associations: host_genes.map((gene, index) => ({
+            gene_symbol: gene.gene_symbol,
+            chromosome: index + 1,
+            position_mb: 10 + index * 12,
+            p_value: gene.p_value,
+            z_score: gene.z_score,
+            source_type: gene.source_type === "RNAseq" ? "TWAS" : gene.source_type,
+          })),
+          qq_points: host_genes.map((gene, index, genes) => ({
+            expected: -Math.log10((index + 1) / (genes.length + 1)),
+            observed: -Math.log10(gene.p_value),
+          })),
+          significance_threshold_logp: -Math.log10(0.05 / Math.max(host_genes.length, 1)),
+          top_hit_gene: host_genes[0]?.gene_symbol,
+          labeled_genes: host_genes.slice(0, 2).map((gene) => gene.gene_symbol),
+        },
+      ],
+      default_tissue: "whole_blood",
     },
     evidence_sources: [
       {

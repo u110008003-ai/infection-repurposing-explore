@@ -1,0 +1,19 @@
+gene_symbol,tissue,chromosome,position_mb,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+IL10,liver,1,206.8,3.82,0.00013,up,false,Highlights immunoregulatory signaling in the hepatic response to candidemia.,innate_immune_regulation;cytokine_signaling
+HMOX1,liver,22,35.2,3.54,0.0004,up,false,Supports oxidative and heme-stress adaptation in liver tissue during fungemia.,innate_immune_regulation
+STAT3,liver,17,42.3,3.29,0.001,up,false,Adds acute-phase and cytokine signaling support in liver tissue.,cytokine_signaling
+CLEC7A,liver,12,10.2,3.06,0.0022,up,false,Supports fungal sensing biology extending into hepatic host response.,fungal_host_defense
+TNFAIP3,liver,6,138.2,2.91,0.0036,up,false,Indicates inflammatory feedback regulation in candidemia-associated liver stress.,cytokine_signaling
+SERPINA1,liver,14,94.8,2.77,0.0056,up,false,Reflects acute-phase response and protease control in systemic fungal infection.,innate_immune_regulation
+SOCS3,liver,17,76.4,2.62,0.0088,up,false,Supports cytokine-response feedback in the hepatic setting.,interferon_jak_stat;cytokine_signaling
+CXCL8,liver,4,74.6,2.48,0.0131,up,false,Adds chemotactic host-defense support in hepatic tissue.,fungal_host_defense;cytokine_signaling
+VCAM1,liver,1,101.3,2.35,0.0187,up,false,Suggests endothelial stress and adhesion biology in hepatic vasculature.,endothelial_activation
+ICAM1,liver,19,10.3,2.24,0.025,up,false,Reinforces leukocyte adhesion support in liver-associated inflammation.,endothelial_activation
+TLR2,liver,4,154.6,2.16,0.0308,up,false,Provides fungal innate sensing support in hepatic tissue.,fungal_host_defense;innate_immune_regulation
+NFKBIA,liver,14,35.8,2.08,0.0374,up,false,Adds NF-kappaB feedback context with moderate support.,cytokine_signaling
+JAK2,liver,9,5.1,2.01,0.0444,up,false,Suggests JAK-linked inflammatory tone with weaker support.,interferon_jak_stat
+MMP9,liver,20,46.1,1.94,0.0524,up,false,Links tissue remodeling and systemic stress response in fungemia.,endothelial_activation
+ANGPT2,liver,8,6.4,1.88,0.0602,up,false,Provides lower-confidence support for vascular leak biology.,endothelial_activation
+IL1R1,liver,2,102.9,1.81,0.0704,up,false,Adds lower-confidence inflammatory receptor signaling context.,cytokine_signaling
+ERAP2,liver,5,96.8,1.75,0.0801,up,false,Suggests antigen-processing involvement with lower-confidence support.,innate_immune_regulation
+CCL2,liver,17,34.3,1.69,0.091,up,false,Adds weaker chemokine recruitment support in hepatic tissue.,cytokine_signaling

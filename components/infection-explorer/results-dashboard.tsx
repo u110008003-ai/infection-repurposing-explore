@@ -259,7 +259,7 @@ export function ResultsDashboard({ caseRecord, result, drugsById }: Props) {
         </article>
       </section>
 
-      {result.association_visuals && result.association_visuals.gene_associations.length > 0 ? (
+      {result.association_visuals && result.association_visuals.tissues.length > 0 ? (
         <AssociationPlots visuals={result.association_visuals} />
       ) : null}
 

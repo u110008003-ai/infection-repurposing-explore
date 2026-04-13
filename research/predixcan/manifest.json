@@ -2,6 +2,7 @@
   "datasets": [
     {
       "caseType": "sepsis",
+      "tissue": "whole_blood",
       "label": "Sepsis whole blood host-response profile",
       "sourceType": "S-PrediXcan",
       "dataset": "Sepsis_WB_MetaXcan_seed_v1",
@@ -9,12 +10,49 @@
       "note": "Replace this seed file with exported S-PrediXcan or PrediXcan association results to keep the integration path intact."
     },
     {
+      "caseType": "sepsis",
+      "tissue": "lung",
+      "label": "Sepsis lung host-response profile",
+      "sourceType": "S-PrediXcan",
+      "dataset": "Sepsis_Lung_MetaXcan_seed_v1",
+      "file": "sepsis_lung_spredixcan.csv",
+      "note": "Seed lung tissue file for tissue-tab visualization. Replace with exported S-PrediXcan or MetaXcan results when available."
+    },
+    {
+      "caseType": "sepsis",
+      "tissue": "liver",
+      "label": "Sepsis liver host-response profile",
+      "sourceType": "S-PrediXcan",
+      "dataset": "Sepsis_Liver_MetaXcan_seed_v1",
+      "file": "sepsis_liver_spredixcan.csv",
+      "note": "Seed liver tissue file for tissue-tab visualization. Replace with exported S-PrediXcan or MetaXcan results when available."
+    },
+    {
       "caseType": "candidemia",
+      "tissue": "whole_blood",
       "label": "Candidemia whole blood host-response profile",
       "sourceType": "S-PrediXcan",
       "dataset": "Candidemia_WB_MetaXcan_seed_v1",
       "file": "candidemia_whole_blood_spredixcan.csv",
       "note": "This file follows the same ingestible schema expected from exported PrediXcan/MetaXcan results."
+    },
+    {
+      "caseType": "candidemia",
+      "tissue": "lung",
+      "label": "Candidemia lung host-response profile",
+      "sourceType": "S-PrediXcan",
+      "dataset": "Candidemia_Lung_MetaXcan_seed_v1",
+      "file": "candidemia_lung_spredixcan.csv",
+      "note": "Seed lung tissue file for tissue-tab visualization. Replace with exported S-PrediXcan or MetaXcan results when available."
+    },
+    {
+      "caseType": "candidemia",
+      "tissue": "liver",
+      "label": "Candidemia liver host-response profile",
+      "sourceType": "S-PrediXcan",
+      "dataset": "Candidemia_Liver_MetaXcan_seed_v1",
+      "file": "candidemia_liver_spredixcan.csv",
+      "note": "Seed liver tissue file for tissue-tab visualization. Replace with exported S-PrediXcan or MetaXcan results when available."
     }
   ]
 }

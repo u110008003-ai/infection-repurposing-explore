@@ -1,0 +1,19 @@
+gene_symbol,tissue,chromosome,position_mb,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+CXCL8,lung,4,74.6,3.96,0.000076,up,false,Supports neutrophil trafficking and fungal host-defense signaling in lung tissue.,fungal_host_defense;cytokine_signaling
+CLEC7A,lung,12,10.2,3.63,0.00028,up,false,Adds Dectin-1 mediated fungal sensing support in tissue-level response.,fungal_host_defense
+STAT1,lung,2,191.7,3.41,0.00065,up,false,Supports interferon-linked signaling in candidemia-associated tissue inflammation.,interferon_jak_stat;innate_immune_regulation
+IL10,lung,1,206.8,3.17,0.0015,up,false,Highlights immunoregulatory tone in tissue-level fungal host response.,innate_immune_regulation;cytokine_signaling
+CSF3R,lung,1,36.9,2.99,0.0028,up,false,Reflects granulocyte support and myeloid host-defense pressure.,fungal_host_defense
+TLR2,lung,4,154.6,2.81,0.0049,up,false,Supports innate fungal sensing through tissue-level pattern recognition.,fungal_host_defense;innate_immune_regulation
+ICAM1,lung,19,10.3,2.68,0.0074,up,false,Adds endothelial adhesion biology in fungal inflammatory response.,endothelial_activation
+VCAM1,lung,1,101.3,2.56,0.0105,up,false,Extends inflammatory adhesion and vascular stress support.,endothelial_activation
+TNFAIP3,lung,6,138.2,2.43,0.0152,up,false,Indicates cytokine feedback regulation in persistent fungal inflammation.,cytokine_signaling
+NFKBIA,lung,14,35.8,2.31,0.0208,up,false,Reflects NF-kappaB feedback regulation with moderate support.,cytokine_signaling
+HIF1A,lung,14,62.1,2.22,0.0262,up,false,Links hypoxic stress adaptation to critical fungal illness.,innate_immune_regulation
+MMP9,lung,20,46.1,2.13,0.0331,up,false,Provides tissue remodeling and inflammatory injury context.,endothelial_activation
+JAK2,lung,9,5.1,2.06,0.0394,up,false,Adds lower-confidence JAK-linked support in fungal host response.,interferon_jak_stat
+SELE,lung,1,169.6,1.97,0.0486,up,false,Provides weaker adhesion support around inflamed endothelium.,endothelial_activation
+IL1R1,lung,2,102.9,1.91,0.0562,up,false,Suggests inflammatory receptor signaling with lower-confidence support.,cytokine_signaling
+ERAP2,lung,5,96.8,1.84,0.0658,up,false,Adds antigen-processing context in tissue-level inflammatory response.,innate_immune_regulation
+ANGPT2,lung,8,6.4,1.77,0.0765,up,false,Provides lower-confidence vascular leak support in candidemia-associated lung stress.,endothelial_activation
+CCL2,lung,17,34.3,1.72,0.0854,up,false,Adds lower-confidence chemokine support for myeloid recruitment.,cytokine_signaling
