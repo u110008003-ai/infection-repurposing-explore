@@ -1,6 +1,19 @@
-gene_symbol,tissue,z_score,p_value,direction,colocalization_supported,interpretation,pathways
-IL10,whole_blood,3.18,0.0015,up,false,Supports immunoregulatory host-response involvement in persistent candidemia.,innate_immune_regulation;cytokine_signaling
-VCAM1,whole_blood,2.74,0.0061,up,false,Suggests endothelial stress and inflammatory adhesion programs remain active.,endothelial_activation
-CXCL8,whole_blood,2.57,0.0102,up,false,Supports neutrophil trafficking and fungal host-defense signaling.,fungal_host_defense;cytokine_signaling
-STAT1,whole_blood,2.29,0.0218,up,false,Adds interferon and JAK-STAT support to the host-response evidence layer.,interferon_jak_stat;innate_immune_regulation
-ANGPT2,whole_blood,2.11,0.0347,up,false,Provides vascular leak and endothelial stress context in bloodstream fungal infection.,endothelial_activation
+gene_symbol,tissue,chromosome,position_mb,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+IL10,whole_blood,1,206.8,4.01,0.000061,up,false,Supports immunoregulatory host-response involvement in persistent candidemia.,innate_immune_regulation;cytokine_signaling
+VCAM1,whole_blood,1,101.3,3.48,0.0005,up,false,Suggests endothelial stress and inflammatory adhesion programs remain active.,endothelial_activation
+CXCL8,whole_blood,4,74.6,3.22,0.0013,up,false,Supports neutrophil trafficking and fungal host-defense signaling.,fungal_host_defense;cytokine_signaling
+STAT1,whole_blood,2,191.7,3.07,0.0021,up,false,Adds interferon and JAK-STAT support to the host-response evidence layer.,interferon_jak_stat;innate_immune_regulation
+ANGPT2,whole_blood,8,6.4,2.94,0.0033,up,false,Provides vascular leak and endothelial stress context in bloodstream fungal infection.,endothelial_activation
+CSF3R,whole_blood,1,36.9,2.86,0.0042,up,false,Supports granulocyte trafficking and myeloid host-defense tone.,fungal_host_defense;innate_immune_regulation
+CLEC7A,whole_blood,12,10.2,2.71,0.0067,up,false,Adds fungal pattern-recognition support through Dectin-1 biology.,fungal_host_defense
+TNFAIP3,whole_blood,6,138.2,2.59,0.0096,up,false,Indicates host inflammatory feedback regulation during persistent fungemia.,cytokine_signaling;innate_immune_regulation
+ICAM1,whole_blood,19,10.3,2.46,0.0138,up,false,Reinforces endothelial activation and leukocyte adhesion support.,endothelial_activation
+JAK2,whole_blood,9,5.1,2.34,0.0194,up,false,Extends support for cytokine-linked signaling tone in candidemia.,interferon_jak_stat
+TLR2,whole_blood,4,154.6,2.29,0.0221,up,false,Supports innate sensing of fungal cell-wall signals.,fungal_host_defense;innate_immune_regulation
+CCL2,whole_blood,17,34.3,2.17,0.03,up,false,Adds chemokine-driven monocyte recruitment context to the host-response layer.,cytokine_signaling
+HIF1A,whole_blood,14,62.1,2.08,0.0375,up,false,Reflects inflammatory-hypoxic stress adaptation in critical illness.,innate_immune_regulation
+SELE,whole_blood,1,169.6,1.99,0.0468,up,false,Provides weaker endothelial adhesion support in bloodstream fungal infection.,endothelial_activation
+NFKBIA,whole_blood,14,35.8,1.91,0.0557,up,false,Suggests lower-confidence NF-kappaB feedback engagement in host-response regulation.,cytokine_signaling
+MMP9,whole_blood,20,46.1,1.84,0.0655,up,false,Adds lower-confidence extracellular matrix stress context to candidemia review.,endothelial_activation
+IL1R1,whole_blood,2,102.9,1.78,0.0754,up,false,Provides weaker inflammatory receptor-level support around persistent fungemia.,cytokine_signaling
+ERAP2,whole_blood,5,96.8,1.72,0.0851,up,false,Suggests antigen-processing involvement with lower-confidence support in the imported file.,innate_immune_regulation

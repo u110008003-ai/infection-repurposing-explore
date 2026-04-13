@@ -1,6 +1,19 @@
-gene_symbol,tissue,z_score,p_value,direction,colocalization_supported,interpretation,pathways
-ANGPT2,whole_blood,3.44,0.0006,up,false,Supports endothelial stress and vascular leak biology in severe sepsis.,endothelial_activation;cytokine_signaling
-IL10,whole_blood,3.12,0.0018,up,false,Highlights an immunoregulatory host-response axis relevant to adjunctive review.,cytokine_signaling;innate_immune_regulation
-STAT1,whole_blood,2.93,0.0034,up,false,Suggests interferon and JAK-STAT signaling remains active in the host-response profile.,interferon_jak_stat;cytokine_signaling
-VCAM1,whole_blood,2.61,0.0091,up,false,Supports endothelial activation and leukocyte adhesion biology in shock physiology.,endothelial_activation
-SELE,whole_blood,2.34,0.0193,up,false,Adds vascular adhesion support to the imported sepsis evidence layer.,endothelial_activation
+gene_symbol,tissue,chromosome,position_mb,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+ANGPT2,whole_blood,8,6.4,4.28,0.000019,up,false,Supports endothelial stress and vascular leak biology in severe sepsis.,endothelial_activation;cytokine_signaling
+IL10,whole_blood,1,206.8,3.82,0.00013,up,false,Highlights an immunoregulatory host-response axis relevant to adjunctive review.,cytokine_signaling;innate_immune_regulation
+STAT1,whole_blood,2,191.7,3.54,0.00039,up,false,Suggests interferon and JAK-STAT signaling remains active in the host-response profile.,interferon_jak_stat;cytokine_signaling
+VCAM1,whole_blood,1,101.3,3.21,0.0013,up,false,Supports endothelial activation and leukocyte adhesion biology in shock physiology.,endothelial_activation
+SELE,whole_blood,1,169.6,3.05,0.0023,up,false,Adds vascular adhesion support to the imported sepsis evidence layer.,endothelial_activation
+ICAM1,whole_blood,19,10.3,2.97,0.003,up,false,Reinforces endothelial-leukocyte trafficking and vascular inflammation.,endothelial_activation
+CXCL8,whole_blood,4,74.6,2.88,0.004,up,false,Supports amplified neutrophil trafficking in early septic host response.,cytokine_signaling;innate_immune_regulation
+TNFAIP3,whole_blood,6,138.2,2.76,0.0058,up,false,Indicates feedback regulation across inflammatory signaling circuits.,cytokine_signaling;innate_immune_regulation
+SOCS3,whole_blood,17,76.4,2.68,0.0074,up,false,Points to JAK-STAT negative-feedback engagement in septic inflammation.,interferon_jak_stat
+MMP9,whole_blood,20,46.1,2.55,0.0107,up,false,Links extracellular matrix stress and vascular injury to severe infection biology.,endothelial_activation
+JAK2,whole_blood,9,5.1,2.42,0.0155,up,false,Extends mechanistic support for JAK-STAT axis involvement.,interferon_jak_stat
+TLR4,whole_blood,9,117.7,2.33,0.0198,up,false,Supports innate immune sensing pressure in the septic phenotype.,innate_immune_regulation
+PTGS2,whole_blood,1,186.7,2.21,0.0271,up,false,Adds inflammatory mediator synthesis support to the host-response profile.,cytokine_signaling
+NFKBIA,whole_blood,14,35.8,2.17,0.03,up,false,Suggests active NF-kappaB feedback regulation during systemic inflammation.,cytokine_signaling
+HMOX1,whole_blood,22,35.2,2.08,0.0372,up,false,Reflects oxidative stress adaptation in severe infection.,innate_immune_regulation
+IL1R1,whole_blood,2,102.9,1.98,0.0478,up,false,Provides weaker support for inflammatory receptor signaling in septic physiology.,cytokine_signaling
+KDR,whole_blood,4,56.0,1.93,0.0532,up,false,Suggests a weaker endothelial signaling contribution around VEGF biology.,endothelial_activation
+CASP8,whole_blood,2,202.1,1.86,0.0627,up,false,Adds lower-confidence apoptotic stress context to the imported evidence layer.,innate_immune_regulation

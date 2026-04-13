@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AssociationPlots } from "@/components/infection-explorer/association-plots";
 import type {
   AnalysisResult,
   ClinicalFlagSeverity,
@@ -257,6 +258,10 @@ export function ResultsDashboard({ caseRecord, result, drugsById }: Props) {
           </div>
         </article>
       </section>
+
+      {result.association_visuals && result.association_visuals.gene_associations.length > 0 ? (
+        <AssociationPlots visuals={result.association_visuals} />
+      ) : null}
 
       {result.evidence_sources && result.evidence_sources.length > 0 ? (
         <section className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">

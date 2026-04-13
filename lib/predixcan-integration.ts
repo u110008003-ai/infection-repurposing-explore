@@ -16,10 +16,12 @@ import {
   type DrugRecord,
   type EvidenceTier,
   type ExplorerCase,
+  type GeneAssociationPoint,
   type MechanisticGene,
   type PathwayEvidence,
   type PhenotypeMapping,
   type PredictedRole,
+  type QQPoint,
   type RankedCandidate,
   type UseContext,
 } from "@/lib/infection-explorer";
@@ -43,6 +45,8 @@ type PredixcanManifest = {
 type PredixcanRow = {
   gene_symbol: string;
   tissue: string;
+  chromosome: number;
+  position_mb: number;
   z_score: number;
   p_value: number;
   direction: "up" | "down" | "mixed";
@@ -56,6 +60,12 @@ type PredixcanRow = {
 type ImportedEvidence = {
   host_genes: MechanisticGene[];
   pathways: PathwayEvidence[];
+  association_visuals: {
+    gene_associations: GeneAssociationPoint[];
+    qq_points: QQPoint[];
+    significance_threshold_logp: number;
+    top_hit_gene?: string;
+  };
   evidence_sources: AnalysisResult["evidence_sources"];
 };
 
@@ -108,6 +118,8 @@ function readDatasetRows(caseType: CaseType): PredixcanRow[] {
     return rows.map((row) => ({
       gene_symbol: row.gene_symbol,
       tissue: row.tissue,
+      chromosome: Number(row.chromosome),
+      position_mb: Number(row.position_mb),
       z_score: Number(row.z_score),
       p_value: Number(row.p_value),
       direction: (row.direction as PredixcanRow["direction"]) || "mixed",
@@ -182,9 +194,40 @@ function buildImportedEvidence(caseType: CaseType): ImportedEvidence | null {
     })
     .slice(0, 6);
 
+  const geneAssociations: GeneAssociationPoint[] = rows
+    .filter((row) => Number.isFinite(row.chromosome) && Number.isFinite(row.position_mb))
+    .map((row) => ({
+      gene_symbol: row.gene_symbol,
+      chromosome: row.chromosome,
+      position_mb: row.position_mb,
+      p_value: row.p_value,
+      z_score: row.z_score,
+      source_type: row.source_type,
+    }))
+    .sort((left, right) =>
+      left.chromosome === right.chromosome
+        ? left.position_mb - right.position_mb
+        : left.chromosome - right.chromosome,
+    );
+
+  const qqPoints: QQPoint[] = rows
+    .map((row) => row.p_value)
+    .filter((pvalue) => pvalue > 0 && Number.isFinite(pvalue))
+    .sort((left, right) => left - right)
+    .map((pvalue, index, values) => ({
+      expected: -Math.log10((index + 1) / (values.length + 1)),
+      observed: -Math.log10(pvalue),
+    }));
+
   return {
     host_genes,
     pathways,
+    association_visuals: {
+      gene_associations: geneAssociations,
+      qq_points: qqPoints,
+      significance_threshold_logp: -Math.log10(0.05 / Math.max(geneAssociations.length, 1)),
+      top_hit_gene: rows[0]?.gene_symbol,
+    },
     evidence_sources: matchedDatasets.map((dataset) => ({
       label: dataset.label,
       source_type: dataset.sourceType,
@@ -383,6 +426,22 @@ function fallbackEvidence(caseRecord: ExplorerCase): ImportedEvidence {
   return {
     host_genes,
     pathways,
+    association_visuals: {
+      gene_associations: host_genes.map((gene, index) => ({
+        gene_symbol: gene.gene_symbol,
+        chromosome: index + 1,
+        position_mb: 10 + index * 12,
+        p_value: gene.p_value,
+        z_score: gene.z_score,
+        source_type: gene.source_type === "RNAseq" ? "TWAS" : gene.source_type,
+      })),
+      qq_points: host_genes.map((gene, index, genes) => ({
+        expected: -Math.log10((index + 1) / (genes.length + 1)),
+        observed: -Math.log10(gene.p_value),
+      })),
+      significance_threshold_logp: -Math.log10(0.05 / Math.max(host_genes.length, 1)),
+      top_hit_gene: host_genes[0]?.gene_symbol,
+    },
     evidence_sources: [
       {
         label: "Fallback evidence seed",
@@ -521,6 +580,7 @@ export function analyzeCase(caseId: string, options?: AnalysisOptions) {
       host_genes: importedEvidence.host_genes,
       pathways: importedEvidence.pathways,
     },
+    association_visuals: importedEvidence.association_visuals,
     evidence_sources: [
       ...(importedEvidence.evidence_sources ?? []),
       ...getFormalMappingProvenance().map((source) => ({

@@ -125,6 +125,20 @@ export type PathwayEvidence = {
   supporting_genes?: string[];
 };
 
+export type GeneAssociationPoint = {
+  gene_symbol: string;
+  chromosome: number;
+  position_mb: number;
+  p_value: number;
+  z_score: number;
+  source_type: "PrediXcan" | "S-PrediXcan" | "TWAS";
+};
+
+export type QQPoint = {
+  expected: number;
+  observed: number;
+};
+
 export type DrugGeneLink = {
   gene_symbol: string;
   link_type: "direct_target" | "pathway_overlap" | "transcriptomic_rescue";
@@ -178,6 +192,12 @@ export type AnalysisResult = {
   mechanistic_evidence: {
     host_genes: MechanisticGene[];
     pathways: PathwayEvidence[];
+  };
+  association_visuals?: {
+    gene_associations: GeneAssociationPoint[];
+    qq_points: QQPoint[];
+    significance_threshold_logp: number;
+    top_hit_gene?: string;
   };
   evidence_sources?: Array<{
     label: string;
