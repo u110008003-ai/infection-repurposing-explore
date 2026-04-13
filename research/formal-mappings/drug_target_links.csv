@@ -1,0 +1,11 @@
+drug_id,gene_symbol,link_type,confidence_level,rationale
+drug-stat1-modulator,STAT1,pathway_overlap,moderate,Public target knowledge supports baricitinib alignment with JAK-STAT host-response signaling.
+drug-stat1-modulator,IL10,pathway_overlap,moderate,Immune regulatory overlap supports host-directed review when IL10-associated programs are prioritized.
+drug-endothelial-stabilizer,VCAM1,pathway_overlap,moderate,Public drug-target evidence supports endothelial activation overlap relevant to vascular inflammation.
+drug-endothelial-stabilizer,ANGPT2,transcriptomic_rescue,weak,Endothelial leak biology creates a mechanistic rationale for exploratory review.
+drug-thromboinflammation,SELE,transcriptomic_rescue,weak,Thrombo-inflammatory adhesion biology supports exploratory rescue-style matching.
+drug-thromboinflammation,VCAM1,pathway_overlap,weak,Microvascular inflammatory overlap supports candidate review under vascular stress profiles.
+drug-calcineurin-modulator,NFATC1,direct_target,strong,Canonical calcineurin pathway targeting creates direct mechanistic overlap despite major safety tradeoffs.
+drug-calcineurin-modulator,IL10,pathway_overlap,weak,Immune-regulatory overlap may appear biologically interesting but remains clinically risky.
+drug-tie2-support,ANGPT2,pathway_overlap,weak,Renin-angiotensin and endothelial stress biology intersect at the pathway level.
+drug-tie2-support,CXCL8,transcriptomic_rescue,weak,Inflammatory vascular stress programs create supportive host-directed overlap.

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDrug } from "@/lib/infection-explorer";
+import { getDrugWithFormalMappings, getFormalMappingProvenance } from "@/lib/formal-mappings";
 
 export default async function DrugDetailPage({
   params,
@@ -11,7 +11,8 @@ export default async function DrugDetailPage({
 }) {
   const { drugId } = await params;
   const { caseId } = await searchParams;
-  const drug = getDrug(drugId);
+  const drug = getDrugWithFormalMappings(drugId);
+  const mappingSources = getFormalMappingProvenance();
 
   if (!drug) {
     notFound();
@@ -97,6 +98,28 @@ export default async function DrugDetailPage({
                 </span>
               </div>
               <p className="mt-3 text-sm leading-7 text-slate-600">{link.rationale}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Formal mapping provenance</p>
+        <h2 className="mt-2 text-2xl font-semibold text-slate-950">Source registry</h2>
+        <div className="mt-5 grid gap-3">
+          {mappingSources.map((source) => (
+            <div
+              key={`${source.type}-${source.dataset}`}
+              className="rounded-[1.4rem] border border-[color:var(--color-line)] bg-[color:var(--color-panel-soft)] p-4"
+            >
+              <div className="flex flex-wrap items-center gap-3">
+                <h3 className="text-lg font-semibold text-slate-950">{source.provider}</h3>
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700">
+                  {source.type}
+                </span>
+              </div>
+              <p className="mt-3 font-mono text-xs text-slate-600">{source.dataset}</p>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{source.note}</p>
             </div>
           ))}
         </div>

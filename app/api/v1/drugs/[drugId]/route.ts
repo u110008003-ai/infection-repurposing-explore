@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { getDrug } from "@/lib/infection-explorer";
+import { getDrugWithFormalMappings } from "@/lib/formal-mappings";
 
 export async function GET(
   _request: Request,
   context: { params: Promise<{ drugId: string }> },
 ) {
   const { drugId } = await context.params;
-  const drug = getDrug(drugId);
+  const drug = getDrugWithFormalMappings(drugId);
 
   if (!drug) {
     return NextResponse.json({ message: "Drug not found." }, { status: 404 });

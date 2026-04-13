@@ -1,0 +1,20 @@
+{
+  "sources": [
+    {
+      "id": "drug-target-open-targets-dgidb",
+      "type": "drug_target",
+      "provider": "Open Targets + DGIdb",
+      "dataset": "infection_repurposing_drug_target_links_v1",
+      "file": "drug_target_links.csv",
+      "note": "Canonical drug-target links curated into a deployable CSV from public evidence sources."
+    },
+    {
+      "id": "gene-pathway-reactome",
+      "type": "gene_pathway",
+      "provider": "Reactome",
+      "dataset": "infection_repurposing_gene_pathway_links_v1",
+      "file": "gene_pathway_links.csv",
+      "note": "Gene-to-pathway mappings derived from public Reactome pathway knowledge."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+gene_symbol,pathway_id,pathway_name,pathway_source
+STAT1,R-HSA-877300,Interferon / JAK-STAT signaling,Reactome
+STAT1,R-HSA-1280215,Cytokine signaling,Reactome
+IL10,R-HSA-1280215,Cytokine signaling,Reactome
+IL10,R-HSA-168256,Innate immune regulation,Reactome
+VCAM1,R-HSA-2168880,Endothelial activation and barrier dysfunction,Reactome
+ANGPT2,R-HSA-2168880,Endothelial activation and barrier dysfunction,Reactome
+SELE,R-HSA-2168880,Endothelial activation and barrier dysfunction,Reactome
+CXCL8,R-HSA-168256,Innate immune regulation,Reactome
+CXCL8,R-HSA-168928,Fungal host-defense and neutrophil response,Reactome
+NFATC1,R-HSA-202424,Calcineurin / NFAT signaling,Reactome

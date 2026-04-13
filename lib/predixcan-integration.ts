@@ -23,6 +23,11 @@ import {
   type RankedCandidate,
   type UseContext,
 } from "@/lib/infection-explorer";
+import {
+  buildPathwaySupportFromGenes,
+  getFormalMappingProvenance,
+  getLinkedGenesForDrug,
+} from "@/lib/formal-mappings";
 
 type PredixcanManifest = {
   datasets: Array<{
@@ -410,7 +415,8 @@ function buildCandidates(
     const contraindicationBase =
       caseRecord.case_type === "sepsis" ? 0.1 + index * 0.05 : 0.11 + index * 0.045;
     const flags = inferClinicalFlags(caseRecord, drug);
-    const matchedGenes = drug.linked_genes
+    const linkedGenes = getLinkedGenesForDrug(drug.id);
+    const matchedGenes = linkedGenes
       .map((link) => link.gene_symbol)
       .filter((gene) => evidenceGenes.has(gene) || pathwayGenes.has(gene));
 
@@ -515,9 +521,39 @@ export function analyzeCase(caseId: string, options?: AnalysisOptions) {
       host_genes: importedEvidence.host_genes,
       pathways: importedEvidence.pathways,
     },
-    evidence_sources: importedEvidence.evidence_sources,
+    evidence_sources: [
+      ...(importedEvidence.evidence_sources ?? []),
+      ...getFormalMappingProvenance().map((source) => ({
+        label: `${source.provider} mapping source`,
+        source_type: source.type,
+        dataset: source.dataset,
+        note: source.note,
+      })),
+    ],
     bottom_line: buildBottomLine(caseRecord, importedEvidence),
   };
+
+  const augmentedPathways = buildPathwaySupportFromGenes(
+    result.ranked_candidates.flatMap((candidate) => candidate.matched_genes ?? []),
+  );
+
+  result.mechanistic_evidence.pathways = [
+    ...result.mechanistic_evidence.pathways,
+    ...augmentedPathways
+      .filter(
+        (entry) =>
+          !result.mechanistic_evidence.pathways.some(
+            (pathway) => pathway.pathway_name === entry.pathway_name,
+          ),
+      )
+      .map((entry) => ({
+        pathway_name: entry.pathway_name,
+        direction: "mixed" as const,
+        evidence_strength: "weak" as const,
+        summary: "Formal gene-pathway registry support derived from imported drug-target and Reactome-style mappings.",
+        supporting_genes: entry.supporting_genes,
+      })),
+  ];
 
   return saveResult(caseId, result);
 }

@@ -145,7 +145,6 @@ export type DrugRecord = {
   immunosuppressive_risk: boolean;
   bleeding_risk: boolean;
   ddi_summary: string;
-  linked_genes: DrugGeneLink[];
 };
 
 export type RankedCandidate = {
@@ -231,20 +230,6 @@ export const drugs: DrugRecord[] = [
     immunosuppressive_risk: true,
     bleeding_risk: false,
     ddi_summary: "Review additive immunosuppression with corticosteroids or other immune agents.",
-    linked_genes: [
-      {
-        gene_symbol: "IL10",
-        link_type: "pathway_overlap",
-        confidence_level: "moderate",
-        rationale: "Touches the immunoregulatory axis highlighted by host-response evidence.",
-      },
-      {
-        gene_symbol: "STAT1",
-        link_type: "pathway_overlap",
-        confidence_level: "moderate",
-        rationale: "Intersects a JAK-STAT inflammatory program often prioritized in sepsis host-response studies.",
-      },
-    ],
   },
   {
     id: "drug-endothelial-stabilizer",
@@ -260,20 +245,6 @@ export const drugs: DrugRecord[] = [
     immunosuppressive_risk: false,
     bleeding_risk: false,
     ddi_summary: "Check CYP3A4 interactions, especially with azoles and macrolides.",
-    linked_genes: [
-      {
-        gene_symbol: "VCAM1",
-        link_type: "pathway_overlap",
-        confidence_level: "moderate",
-        rationale: "Aligns with endothelial activation pathways surfaced in host-response evidence.",
-      },
-      {
-        gene_symbol: "ANGPT2",
-        link_type: "transcriptomic_rescue",
-        confidence_level: "weak",
-        rationale: "May be useful when endothelial leak and vascular stress genes dominate the imported profile.",
-      },
-    ],
   },
   {
     id: "drug-thromboinflammation",
@@ -289,20 +260,6 @@ export const drugs: DrugRecord[] = [
     immunosuppressive_risk: false,
     bleeding_risk: true,
     ddi_summary: "Review concurrent anticoagulation or thrombocytopenia before prioritization.",
-    linked_genes: [
-      {
-        gene_symbol: "SELE",
-        link_type: "transcriptomic_rescue",
-        confidence_level: "weak",
-        rationale: "Rescue-style overlap with endothelial and platelet activation signatures.",
-      },
-      {
-        gene_symbol: "VCAM1",
-        link_type: "pathway_overlap",
-        confidence_level: "weak",
-        rationale: "Aligns with thrombo-inflammatory vascular adhesion programs.",
-      },
-    ],
   },
   {
     id: "drug-calcineurin-modulator",
@@ -318,20 +275,6 @@ export const drugs: DrugRecord[] = [
     immunosuppressive_risk: true,
     bleeding_risk: false,
     ddi_summary: "Major CYP3A4 interaction liability, especially with azole antifungals.",
-    linked_genes: [
-      {
-        gene_symbol: "NFATC1",
-        link_type: "direct_target",
-        confidence_level: "strong",
-        rationale: "Direct target relation but constrained by infectious and pharmacologic risk.",
-      },
-      {
-        gene_symbol: "IL10",
-        link_type: "pathway_overlap",
-        confidence_level: "weak",
-        rationale: "Can superficially match immune-regulatory signals while remaining clinically risky.",
-      },
-    ],
   },
   {
     id: "drug-tie2-support",
@@ -347,20 +290,6 @@ export const drugs: DrugRecord[] = [
     immunosuppressive_risk: false,
     bleeding_risk: false,
     ddi_summary: "Monitor renal perfusion and potassium in hemodynamically unstable patients.",
-    linked_genes: [
-      {
-        gene_symbol: "ANGPT2",
-        link_type: "pathway_overlap",
-        confidence_level: "weak",
-        rationale: "Graph signal overlaps with endothelial leak and vascular stress pathways.",
-      },
-      {
-        gene_symbol: "CXCL8",
-        link_type: "transcriptomic_rescue",
-        confidence_level: "weak",
-        rationale: "May align with inflammatory vascular stress and chemokine signaling programs.",
-      },
-    ],
   },
 ];
 

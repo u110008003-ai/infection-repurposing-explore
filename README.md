@@ -11,6 +11,7 @@ It keeps standard-of-care anchors visible while layering:
 
 - graph-style candidate ranking
 - imported PrediXcan / MetaXcan / TWAS evidence
+- formal drug-target / pathway mappings
 - rule-based clinical safety flags
 
 ## What "real PrediXcan integration" means here
@@ -43,6 +44,27 @@ The imported evidence layer is driven by:
 These files are parsed by:
 
 - `lib/predixcan-integration.ts`
+
+## Formal mapping sources
+
+The app no longer relies on hand-written drug-gene seed mappings in code.
+
+Instead, it reads source-backed import files from:
+
+- `research/formal-mappings/manifest.json`
+- `research/formal-mappings/drug_target_links.csv`
+- `research/formal-mappings/gene_pathway_links.csv`
+
+These are parsed by:
+
+- `lib/formal-mappings.ts`
+
+The current formal mapping layer is designed for deployable provenance:
+
+- drug-target links are imported from public-source-derived registry files aligned to Open Targets and DGIdb style evidence
+- gene-pathway links are imported from Reactome-derived pathway mapping files
+
+This means the website runtime reads stable exported mapping tables rather than directly querying external services on every request.
 
 ## Expected file shape
 
