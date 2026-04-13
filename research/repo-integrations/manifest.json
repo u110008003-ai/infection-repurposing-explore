@@ -1,0 +1,90 @@
+{
+  "repos": [
+    {
+      "id": "digital-patient",
+      "name": "digital-patient",
+      "repo_url": "https://github.com/pietrobarbiero/digital-patient",
+      "role": "Primary patient digital twin backbone for graph-based disease-state tracking and endpoint-aware state representation.",
+      "integration_status": "active",
+      "note": "The website now uses this repo as the reference backbone for the twin-state architecture layer and update contract."
+    },
+    {
+      "id": "twinweaver",
+      "name": "TwinWeaver",
+      "repo_url": "https://github.com/MendenLab/TwinWeaver",
+      "role": "Longitudinal patient-trajectory and clinical-sequence framing for future time-updating twin narratives.",
+      "integration_status": "active",
+      "note": "The website now treats TwinWeaver as the design reference for future longitudinal update mode and narrative state stitching."
+    },
+    {
+      "id": "drkg",
+      "name": "DRKG",
+      "repo_url": "https://github.com/gnn4dr/DRKG",
+      "role": "Knowledge graph evidence layer connecting drugs, genes, diseases, and biological processes for mechanism-aware repurposing review.",
+      "integration_status": "active",
+      "note": "The website now surfaces a DRKG-style case panel so knowledge-graph context is visible next to TWAS and candidate ranking."
+    }
+  ],
+  "drkg_case_panels": {
+    "sepsis": {
+      "title": "DRKG-style sepsis graph panel",
+      "summary": "A compact knowledge-graph view showing how host-response genes, vascular injury biology, and candidate drugs intersect in the current case framing.",
+      "triples": [
+        {
+          "head": "Sepsis",
+          "relation": "activates",
+          "tail": "endothelial activation",
+          "rationale": "Knowledge-graph style edge for shock physiology and vascular leak."
+        },
+        {
+          "head": "STAT1",
+          "relation": "participates in",
+          "tail": "interferon / JAK-STAT signaling",
+          "rationale": "Links imported TWAS signal to a pathway-level mechanism node."
+        },
+        {
+          "head": "Baricitinib",
+          "relation": "modulates",
+          "tail": "STAT1 axis",
+          "rationale": "Connects candidate ranking to graph-level mechanism overlap."
+        },
+        {
+          "head": "ANGPT2",
+          "relation": "marks",
+          "tail": "vascular leak biology",
+          "rationale": "Supports endothelial stress interpretation in severe sepsis."
+        }
+      ]
+    },
+    "candidemia": {
+      "title": "DRKG-style candidemia graph panel",
+      "summary": "A compact graph evidence view linking fungal host-defense genes, endothelial stress, and exploratory adjunctive candidates.",
+      "triples": [
+        {
+          "head": "Candidemia",
+          "relation": "engages",
+          "tail": "fungal host-defense signaling",
+          "rationale": "Frames candidemia as a host-response and source-control state rather than only a culture result."
+        },
+        {
+          "head": "CXCL8",
+          "relation": "supports",
+          "tail": "neutrophil trafficking",
+          "rationale": "Connects imported expression evidence to fungal defense biology."
+        },
+        {
+          "head": "VCAM1",
+          "relation": "marks",
+          "tail": "endothelial stress",
+          "rationale": "Links inflammatory adhesion biology to bloodstream fungal infection context."
+        },
+        {
+          "head": "Losartan",
+          "relation": "overlaps with",
+          "tail": "ANGPT2-associated vascular program",
+          "rationale": "Knowledge-graph style explanation for exploratory host-directed review."
+        }
+      ]
+    }
+  }
+}

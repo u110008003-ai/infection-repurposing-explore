@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { listCaseTypes } from "@/lib/infection-explorer";
+import { listRepoIntegrations } from "@/lib/repo-integrations";
 
 const platformPrinciples = [
   {
@@ -40,6 +41,7 @@ const twinStack = [
 
 export default function Home() {
   const scenarios = listCaseTypes();
+  const repoIntegrations = listRepoIntegrations();
 
   return (
     <main className="min-h-screen overflow-hidden bg-[color:var(--color-background)] px-6 py-8 text-slate-950">
@@ -229,6 +231,38 @@ export default function Home() {
               ))}
             </div>
           </article>
+        </section>
+
+        <section className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Upstream code integrations</p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
+            The product now explicitly maps to the external codebases you want to use
+          </h2>
+          <div className="mt-5 grid gap-3 lg:grid-cols-3">
+            {repoIntegrations.map((repo) => (
+              <article
+                key={repo.id}
+                className="rounded-[1.4rem] border border-[color:var(--color-line)] bg-[color:var(--color-panel-soft)] p-4"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-lg font-semibold text-slate-950">{repo.name}</h3>
+                  <span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-900">
+                    {repo.integration_status}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{repo.role}</p>
+                <p className="mt-2 text-sm leading-7 text-slate-600">{repo.note}</p>
+                <a
+                  href={repo.repo_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex text-sm font-semibold text-cyan-700 hover:text-cyan-800"
+                >
+                  View repo
+                </a>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section id="guardrails" className="rounded-[2rem] border border-cyan-200 bg-cyan-50 p-6 shadow-sm">

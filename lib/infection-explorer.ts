@@ -165,6 +165,26 @@ export type DigitalTwinSummary = {
   layers: DigitalTwinLayer[];
 };
 
+export type DrkgGraphPanel = {
+  title: string;
+  summary: string;
+  triples: Array<{
+    head: string;
+    relation: string;
+    tail: string;
+    rationale: string;
+  }>;
+};
+
+export type RepoIntegrationSummary = {
+  id: string;
+  name: string;
+  repo_url: string;
+  role: string;
+  integration_status: "active" | "planned";
+  note: string;
+};
+
 export type DrugGeneLink = {
   gene_symbol: string;
   link_type: "direct_target" | "pathway_overlap" | "transcriptomic_rescue";
@@ -224,6 +244,8 @@ export type AnalysisResult = {
     default_tissue: string;
   };
   digital_twin?: DigitalTwinSummary;
+  drkg_panel?: DrkgGraphPanel;
+  repo_integrations?: RepoIntegrationSummary[];
   evidence_sources?: Array<{
     label: string;
     source_type: string;

@@ -165,6 +165,32 @@ export function ResultsDashboard({ caseRecord, result, drugsById }: Props) {
         </section>
       ) : null}
 
+      {result.drkg_panel ? (
+        <section className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+          <article className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Knowledge graph layer</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-950">{result.drkg_panel.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600">{result.drkg_panel.summary}</p>
+          </article>
+
+          <article className="rounded-[2rem] border border-[color:var(--color-line)] bg-[color:var(--color-panel-soft)] p-6 shadow-sm">
+            <div className="grid gap-3">
+              {result.drkg_panel.triples.map((triple, index) => (
+                <div
+                  key={`${triple.head}-${triple.tail}-${index}`}
+                  className="rounded-[1.4rem] border border-[color:var(--color-line)] bg-white p-4"
+                >
+                  <p className="font-mono text-sm text-slate-900">
+                    {triple.head} <span className="text-cyan-700">--{triple.relation}--&gt;</span> {triple.tail}
+                  </p>
+                  <p className="mt-2 text-sm leading-7 text-slate-600">{triple.rationale}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+      ) : null}
+
       <section className="grid gap-4">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Ranked exploratory candidates</p>
@@ -324,6 +350,36 @@ export function ResultsDashboard({ caseRecord, result, drugsById }: Props) {
                 </div>
                 <p className="mt-3 font-mono text-xs text-slate-600">{source.dataset}</p>
                 <p className="mt-3 text-sm leading-7 text-slate-600">{source.note}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {result.repo_integrations && result.repo_integrations.length > 0 ? (
+        <section className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Integration registry</p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-950">Active upstream codebases</h2>
+          <div className="mt-5 grid gap-3">
+            {result.repo_integrations.map((repo) => (
+              <div
+                key={repo.id}
+                className="rounded-[1.4rem] border border-[color:var(--color-line)] bg-[color:var(--color-panel-soft)] p-4"
+              >
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-lg font-semibold text-slate-950">{repo.name}</h3>
+                  <StatusPill>{repo.integration_status}</StatusPill>
+                </div>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{repo.role}</p>
+                <p className="mt-2 text-sm leading-7 text-slate-600">{repo.note}</p>
+                <a
+                  href={repo.repo_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 inline-flex text-sm font-semibold text-cyan-700 hover:text-cyan-800"
+                >
+                  Open upstream repo
+                </a>
               </div>
             ))}
           </div>
