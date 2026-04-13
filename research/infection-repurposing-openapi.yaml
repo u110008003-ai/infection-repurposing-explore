@@ -1,0 +1,619 @@
+openapi: 3.1.0
+info:
+  title: Infection Repurposing Explorer MVP API
+  version: 0.1.0
+  description: >
+    Mock-first API contract for the Infection Repurposing Explorer MVP focused on
+    sepsis and candidemia. This API is for hypothesis prioritization and evidence
+    review only and is not a treatment recommendation system.
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/v1/cases/sepsis:
+    post:
+      summary: Create a sepsis case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SepsisCaseInput"
+      responses:
+        "200":
+          description: Case created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateCaseResponse"
+  /api/v1/cases/candidemia:
+    post:
+      summary: Create a candidemia case
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CandidemiaCaseInput"
+      responses:
+        "200":
+          description: Case created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateCaseResponse"
+  /api/v1/cases/{caseId}:
+    get:
+      summary: Get case payload
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Stored case
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/StoredSepsisCase"
+                  - $ref: "#/components/schemas/StoredCandidemiaCase"
+  /api/v1/cases/{caseId}/analyze:
+    post:
+      summary: Run the mock analysis pipeline
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeRequest"
+      responses:
+        "200":
+          description: Analysis completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+  /api/v1/cases/{caseId}/results:
+    get:
+      summary: Get the case analysis result
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+  /api/v1/cases/{caseId}/export:
+    get:
+      summary: Export report placeholder
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Report generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExportResponse"
+    post:
+      summary: Export report placeholder
+      parameters:
+        - in: path
+          name: caseId
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                format:
+                  type: string
+                  enum: [pdf, json]
+      responses:
+        "200":
+          description: Report generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExportResponse"
+  /api/v1/drugs/{drugId}:
+    get:
+      summary: Get drug detail
+      parameters:
+        - in: path
+          name: drugId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Drug detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DrugDetailResponse"
+components:
+  schemas:
+    CreateCaseResponse:
+      type: object
+      properties:
+        case_id:
+          type: string
+          format: uuid
+        case_type:
+          type: string
+          enum: [sepsis, candidemia]
+        status:
+          type: string
+          enum: [created]
+      required: [case_id, case_type, status]
+    AnalyzeRequest:
+      type: object
+      properties:
+        include_txgnn:
+          type: boolean
+        include_twas:
+          type: boolean
+        include_rule_engine:
+          type: boolean
+        include_evidence_summary:
+          type: boolean
+      required:
+        - include_txgnn
+        - include_twas
+        - include_rule_engine
+        - include_evidence_summary
+    CaseInputBase:
+      type: object
+      properties:
+        title:
+          type: string
+        patient_age:
+          type: integer
+        sex:
+          type: string
+        care_setting:
+          type: string
+          enum: [ward, ICU, ED]
+        immunocompromised:
+          type: boolean
+        malignancy:
+          type: boolean
+        pregnancy:
+          type: boolean
+        renal_function_egfr:
+          type: number
+        creatinine:
+          type: number
+        ast:
+          type: number
+        alt:
+          type: number
+        bilirubin:
+          type: number
+        platelet:
+          type: number
+        wbc:
+          type: number
+        crp:
+          type: number
+        pct:
+          type: number
+        lactate:
+          type: number
+        notes:
+          type: string
+      required:
+        - title
+        - patient_age
+        - sex
+        - care_setting
+        - immunocompromised
+        - malignancy
+        - pregnancy
+        - renal_function_egfr
+        - creatinine
+        - ast
+        - alt
+        - bilirubin
+        - platelet
+        - wbc
+        - crp
+        - pct
+        - lactate
+        - notes
+    SepsisDetails:
+      type: object
+      properties:
+        infection_source:
+          type: string
+        sofa_score:
+          type: integer
+        qsofa_score:
+          type: integer
+        septic_shock:
+          type: boolean
+        vasopressor_required:
+          type: boolean
+        mechanical_ventilation:
+          type: boolean
+        known_pathogen:
+          type: string
+        resistance_profile:
+          type: string
+        current_antimicrobials:
+          type: string
+        current_steroids:
+          type: boolean
+        anticoagulation:
+          type: boolean
+        organ_support:
+          type: string
+      required:
+        - infection_source
+        - sofa_score
+        - qsofa_score
+        - septic_shock
+        - vasopressor_required
+        - mechanical_ventilation
+        - known_pathogen
+        - resistance_profile
+        - current_antimicrobials
+        - current_steroids
+        - anticoagulation
+        - organ_support
+    CandidemiaDetails:
+      type: object
+      properties:
+        candida_species:
+          type: string
+        first_positive_blood_culture:
+          type: string
+          format: date
+        persistent_bacteremia:
+          type: boolean
+        culture_cleared:
+          type: boolean
+        central_line_present:
+          type: boolean
+        central_line_removed:
+          type: boolean
+        endocarditis_suspected:
+          type: boolean
+        endophthalmitis_suspected:
+          type: boolean
+        deep_focus_suspected:
+          type: boolean
+        neutropenia:
+          type: boolean
+        tpn:
+          type: boolean
+        recent_broad_spectrum_antibiotics:
+          type: boolean
+        abdominal_surgery_recent:
+          type: boolean
+        current_antifungal:
+          type: string
+        qt_risk:
+          type: boolean
+      required:
+        - candida_species
+        - first_positive_blood_culture
+        - persistent_bacteremia
+        - culture_cleared
+        - central_line_present
+        - central_line_removed
+        - endocarditis_suspected
+        - endophthalmitis_suspected
+        - deep_focus_suspected
+        - neutropenia
+        - tpn
+        - recent_broad_spectrum_antibiotics
+        - abdominal_surgery_recent
+        - current_antifungal
+        - qt_risk
+    SepsisCaseInput:
+      allOf:
+        - $ref: "#/components/schemas/CaseInputBase"
+        - type: object
+          properties:
+            sepsis_details:
+              $ref: "#/components/schemas/SepsisDetails"
+          required: [sepsis_details]
+    CandidemiaCaseInput:
+      allOf:
+        - $ref: "#/components/schemas/CaseInputBase"
+        - type: object
+          properties:
+            candidemia_details:
+              $ref: "#/components/schemas/CandidemiaDetails"
+          required: [candidemia_details]
+    StoredCaseBase:
+      allOf:
+        - $ref: "#/components/schemas/CaseInputBase"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+    StoredSepsisCase:
+      allOf:
+        - $ref: "#/components/schemas/StoredCaseBase"
+        - type: object
+          properties:
+            case_type:
+              type: string
+              enum: [sepsis]
+            sepsis_details:
+              $ref: "#/components/schemas/SepsisDetails"
+    StoredCandidemiaCase:
+      allOf:
+        - $ref: "#/components/schemas/StoredCaseBase"
+        - type: object
+          properties:
+            case_type:
+              type: string
+              enum: [candidemia]
+            candidemia_details:
+              $ref: "#/components/schemas/CandidemiaDetails"
+    AnalysisResult:
+      type: object
+      properties:
+        case_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [completed]
+        summary:
+          type: object
+          properties:
+            case_type:
+              type: string
+              enum: [sepsis, candidemia]
+            normalized_phenotypes:
+              type: array
+              items:
+                $ref: "#/components/schemas/Phenotype"
+        standard_of_care:
+          type: array
+          items:
+            $ref: "#/components/schemas/TextBlock"
+        ranked_candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/RankedCandidate"
+        mechanistic_evidence:
+          type: object
+          properties:
+            host_genes:
+              type: array
+              items:
+                $ref: "#/components/schemas/MechanisticGene"
+            pathways:
+              type: array
+              items:
+                $ref: "#/components/schemas/PathwayEvidence"
+        bottom_line:
+          type: string
+      required:
+        - case_id
+        - status
+        - summary
+        - standard_of_care
+        - ranked_candidates
+        - mechanistic_evidence
+        - bottom_line
+    Phenotype:
+      type: object
+      properties:
+        label:
+          type: string
+        ontology_id:
+          type: string
+        confidence:
+          type: number
+      required: [label, ontology_id, confidence]
+    TextBlock:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+      required: [title, content]
+    ClinicalFlag:
+      type: object
+      properties:
+        type:
+          type: string
+        severity:
+          type: string
+          enum: [low, medium, high]
+        message:
+          type: string
+        action_hint:
+          type: string
+      required: [type, severity, message]
+    RankedCandidate:
+      type: object
+      properties:
+        rank:
+          type: integer
+        drug_id:
+          type: string
+        drug_name:
+          type: string
+        indication_score:
+          type: number
+        contraindication_score:
+          type: number
+        net_priority_score:
+          type: number
+        predicted_role:
+          type: string
+        use_context:
+          type: string
+        bucket:
+          type: string
+        evidence_tier:
+          type: string
+        model_explanation:
+          type: string
+        clinical_flags:
+          type: array
+          items:
+            $ref: "#/components/schemas/ClinicalFlag"
+      required:
+        - rank
+        - drug_id
+        - drug_name
+        - indication_score
+        - contraindication_score
+        - net_priority_score
+        - predicted_role
+        - use_context
+        - bucket
+        - evidence_tier
+        - model_explanation
+        - clinical_flags
+    MechanisticGene:
+      type: object
+      properties:
+        gene_symbol:
+          type: string
+        tissue:
+          type: string
+        direction:
+          type: string
+        source_type:
+          type: string
+        z_score:
+          type: number
+        p_value:
+          type: number
+        colocalization_supported:
+          type: boolean
+        interpretation:
+          type: string
+      required:
+        - gene_symbol
+        - tissue
+        - direction
+        - source_type
+        - z_score
+        - p_value
+        - colocalization_supported
+        - interpretation
+    PathwayEvidence:
+      type: object
+      properties:
+        pathway_name:
+          type: string
+        direction:
+          type: string
+        evidence_strength:
+          type: string
+        summary:
+          type: string
+      required: [pathway_name, direction, evidence_strength, summary]
+    DrugGeneLink:
+      type: object
+      properties:
+        gene_symbol:
+          type: string
+        link_type:
+          type: string
+        confidence_level:
+          type: string
+        rationale:
+          type: string
+      required: [gene_symbol, link_type, confidence_level, rationale]
+    DrugDetailResponse:
+      type: object
+      properties:
+        drug_id:
+          type: string
+        generic_name:
+          type: string
+        drug_class:
+          type: string
+        mechanism_summary:
+          type: string
+        route:
+          type: string
+        renal_adjustment_required:
+          type: boolean
+        hepatic_caution:
+          type: boolean
+        qt_risk:
+          type: boolean
+        immunosuppressive_risk:
+          type: boolean
+        bleeding_risk:
+          type: boolean
+        ddi_summary:
+          type: string
+        linked_genes:
+          type: array
+          items:
+            $ref: "#/components/schemas/DrugGeneLink"
+      required:
+        - drug_id
+        - generic_name
+        - drug_class
+        - mechanism_summary
+        - route
+        - renal_adjustment_required
+        - hepatic_caution
+        - qt_risk
+        - immunosuppressive_risk
+        - bleeding_risk
+        - ddi_summary
+        - linked_genes
+    ExportResponse:
+      type: object
+      properties:
+        report_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+        download_url:
+          type: string
+        format:
+          type: string
+      required: [report_id, status, download_url, format]
