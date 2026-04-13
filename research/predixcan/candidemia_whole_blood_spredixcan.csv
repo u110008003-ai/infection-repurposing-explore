@@ -1,0 +1,6 @@
+gene_symbol,tissue,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+IL10,whole_blood,3.18,0.0015,up,false,Supports immunoregulatory host-response involvement in persistent candidemia.,innate_immune_regulation;cytokine_signaling
+VCAM1,whole_blood,2.74,0.0061,up,false,Suggests endothelial stress and inflammatory adhesion programs remain active.,endothelial_activation
+CXCL8,whole_blood,2.57,0.0102,up,false,Supports neutrophil trafficking and fungal host-defense signaling.,fungal_host_defense;cytokine_signaling
+STAT1,whole_blood,2.29,0.0218,up,false,Adds interferon and JAK-STAT support to the host-response evidence layer.,interferon_jak_stat;innate_immune_regulation
+ANGPT2,whole_blood,2.11,0.0347,up,false,Provides vascular leak and endothelial stress context in bloodstream fungal infection.,endothelial_activation

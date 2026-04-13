@@ -1,0 +1,20 @@
+{
+  "datasets": [
+    {
+      "caseType": "sepsis",
+      "label": "Sepsis whole blood host-response profile",
+      "sourceType": "S-PrediXcan",
+      "dataset": "Sepsis_WB_MetaXcan_seed_v1",
+      "file": "sepsis_whole_blood_spredixcan.csv",
+      "note": "Replace this seed file with exported S-PrediXcan or PrediXcan association results to keep the integration path intact."
+    },
+    {
+      "caseType": "candidemia",
+      "label": "Candidemia whole blood host-response profile",
+      "sourceType": "S-PrediXcan",
+      "dataset": "Candidemia_WB_MetaXcan_seed_v1",
+      "file": "candidemia_whole_blood_spredixcan.csv",
+      "note": "This file follows the same ingestible schema expected from exported PrediXcan/MetaXcan results."
+    }
+  ]
+}

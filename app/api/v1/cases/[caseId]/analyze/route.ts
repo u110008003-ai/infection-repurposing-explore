@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { analyzeCase, type AnalysisOptions } from "@/lib/infection-explorer";
+import type { AnalysisOptions } from "@/lib/infection-explorer";
+import { analyzeCase } from "@/lib/predixcan-integration";
 
 export async function POST(
   request: Request,

@@ -1,0 +1,6 @@
+gene_symbol,tissue,z_score,p_value,direction,colocalization_supported,interpretation,pathways
+ANGPT2,whole_blood,3.44,0.0006,up,false,Supports endothelial stress and vascular leak biology in severe sepsis.,endothelial_activation;cytokine_signaling
+IL10,whole_blood,3.12,0.0018,up,false,Highlights an immunoregulatory host-response axis relevant to adjunctive review.,cytokine_signaling;innate_immune_regulation
+STAT1,whole_blood,2.93,0.0034,up,false,Suggests interferon and JAK-STAT signaling remains active in the host-response profile.,interferon_jak_stat;cytokine_signaling
+VCAM1,whole_blood,2.61,0.0091,up,false,Supports endothelial activation and leukocyte adhesion biology in shock physiology.,endothelial_activation
+SELE,whole_blood,2.34,0.0193,up,false,Adds vascular adhesion support to the imported sepsis evidence layer.,endothelial_activation

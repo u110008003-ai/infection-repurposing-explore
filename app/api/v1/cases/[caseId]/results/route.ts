@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { analyzeCase, getResult } from "@/lib/infection-explorer";
+import { getResult } from "@/lib/infection-explorer";
+import { analyzeCase } from "@/lib/predixcan-integration";
 
 export async function GET(
   _request: Request,

@@ -257,6 +257,28 @@ export function ResultsDashboard({ caseRecord, result, drugsById }: Props) {
           </div>
         </article>
       </section>
+
+      {result.evidence_sources && result.evidence_sources.length > 0 ? (
+        <section className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Imported evidence sources</p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-950">PrediXcan / TWAS provenance</h2>
+          <div className="mt-5 grid gap-3">
+            {result.evidence_sources.map((source) => (
+              <div
+                key={`${source.source_type}-${source.dataset}`}
+                className="rounded-[1.4rem] border border-[color:var(--color-line)] bg-[color:var(--color-panel-soft)] p-4"
+              >
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-lg font-semibold text-slate-950">{source.label}</h3>
+                  <StatusPill>{source.source_type}</StatusPill>
+                </div>
+                <p className="mt-3 font-mono text-xs text-slate-600">{source.dataset}</p>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{source.note}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

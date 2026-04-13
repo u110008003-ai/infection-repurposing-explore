@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Infection Repurposing Explorer
 
-## Getting Started
+Clinician-centered severe infection review workspace for exploratory drug repurposing.
 
-First, run the development server:
+The current MVP focuses on:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Sepsis
+- Candidemia
+
+It keeps standard-of-care anchors visible while layering:
+
+- graph-style candidate ranking
+- imported PrediXcan / MetaXcan / TWAS evidence
+- rule-based clinical safety flags
+
+## What "real PrediXcan integration" means here
+
+This app does **not** run the full PrediXcan or MetaXcan pipeline inside Vercel.
+
+That would be the wrong deployment architecture for a serverless web app because genome-scale prediction and association jobs should be run offline or in a dedicated compute environment first.
+
+Instead, the app now uses a production-appropriate integration path:
+
+1. Run PrediXcan / S-PrediXcan / MetaXcan offline.
+2. Export gene-level association results.
+3. Drop those result files into `research/predixcan/`.
+4. The web app parses those files at runtime and uses them to drive:
+   - host gene evidence
+   - pathway summaries
+   - drug-gene matching
+   - candidate re-ranking
+
+This is the deployable path that can actually be served from Vercel.
+
+## PrediXcan data folder
+
+The imported evidence layer is driven by:
+
+- `research/predixcan/manifest.json`
+- `research/predixcan/sepsis_whole_blood_spredixcan.csv`
+- `research/predixcan/candidemia_whole_blood_spredixcan.csv`
+
+These files are parsed by:
+
+- `lib/predixcan-integration.ts`
+
+## Expected file shape
+
+Each imported result file currently expects the following columns:
+
+```csv
+gene_symbol,tissue,z_score,p_value,direction,colocalization_supported,interpretation,pathways
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Where:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `gene_symbol`: prioritized gene symbol
+- `tissue`: tissue or model context
+- `z_score`: imported PrediXcan / MetaXcan z-score
+- `p_value`: corresponding association p-value
+- `direction`: `up`, `down`, or `mixed`
+- `colocalization_supported`: `true` or `false`
+- `interpretation`: short text shown in the UI
+- `pathways`: semicolon-separated pathway tags
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local development
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Verification
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+npm run build
+```
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The production app is deployed on Vercel:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [https://infection-repurposing-explorer.vercel.app](https://infection-repurposing-explorer.vercel.app)
+
+## Clinical caution
+
+This product is for hypothesis prioritization and evidence review only.
+
+It is not a treatment recommendation system and should not replace:
+
+- antimicrobial or antifungal therapy
+- source control
+- hemodynamic stabilization
+- organ support
+- guideline-based care
+- specialist consultation

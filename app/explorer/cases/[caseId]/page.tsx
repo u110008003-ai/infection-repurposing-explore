@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { ResultsDashboard } from "@/components/infection-explorer/results-dashboard";
-import { analyzeCase, drugs, getCase, getResult } from "@/lib/infection-explorer";
+import { drugs, getCase, getResult } from "@/lib/infection-explorer";
+import { analyzeCase } from "@/lib/predixcan-integration";
 
 export default async function CaseResultsPage({
   params,
