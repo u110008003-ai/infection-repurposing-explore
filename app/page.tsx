@@ -176,6 +176,37 @@ export default function Home() {
                 </div>
               </article>
             ))}
+
+            <article className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-[0_24px_70px_-45px_rgba(8,17,31,0.32)]">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
+                    Interop
+                  </p>
+                  <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
+                    SMART on FHIR app
+                  </h2>
+                </div>
+                <span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-900">
+                  New
+                </span>
+              </div>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">
+                Launch the workspace against a SMART sandbox or an EHR-issued launch context, then read
+                patient, encounter, and observation data directly inside the app.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/smart"
+                  className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-cyan-600 hover:text-cyan-700"
+                >
+                  Open SMART app
+                </Link>
+                <span className="rounded-full bg-slate-100 px-4 py-2 text-sm text-slate-600">
+                  SMART launch, callback, and FHIR patient workspace
+                </span>
+              </div>
+            </article>
           </div>
         </section>
 

@@ -98,6 +98,33 @@ The twin-state payload is generated from:
 - candidate ranking output
 - local DRKG graph evidence
 
+## SMART on FHIR app
+
+The app now includes a browser-side SMART on FHIR flow built with `client-js`:
+
+- `/smart`
+- `/smart/callback`
+- `/smart/app`
+
+This adds a minimal interoperable app shell that can:
+
+- launch against a SMART sandbox or EHR-issued `iss`
+- complete the SMART OAuth callback
+- read `Patient`, `Encounter`, and recent `Observation` resources
+- open a clinician-facing FHIR workspace inside the product
+
+Configure it with:
+
+```env
+NEXT_PUBLIC_SMART_CLIENT_ID=your-smart-client-id
+NEXT_PUBLIC_SMART_FHIR_BASE_URL=https://launch.smarthealthit.org/v/r4/fhir
+NEXT_PUBLIC_SMART_SCOPE=launch/patient openid fhirUser patient/*.read user/*.read
+NEXT_PUBLIC_SMART_REDIRECT_PATH=/smart/callback
+```
+
+For standalone testing, point the issuer at a SMART sandbox. For EHR launch, the app will also accept
+`iss` and `launch` in the launch URL.
+
 ## Expected file shape
 
 Each imported result file currently expects the following columns:
