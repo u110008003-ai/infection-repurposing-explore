@@ -1,0 +1,16 @@
+case_type,head,head_type,relation,tail,tail_type,rationale
+sepsis,Sepsis,disease,activates,endothelial activation,biological_process,Supports the vascular leak and capillary dysfunction frame in severe sepsis.
+sepsis,Sepsis,disease,engages,cytokine signaling,biological_process,Connects the disease node to systemic inflammatory amplification.
+sepsis,STAT1,gene,participates in,interferon / JAK-STAT signaling,pathway,Links imported host-response evidence to a canonical immune pathway.
+sepsis,ANGPT2,gene,marks,vascular leak biology,biological_process,Supports endothelial stress interpretation in shock physiology.
+sepsis,Baricitinib,drug,modulates,STAT1,gene,Connects a prioritized candidate to the JAK-STAT evidence axis.
+sepsis,Atorvastatin,drug,overlaps with,VCAM1,gene,Adds endothelial stabilization rationale to the ranked candidate surface.
+shared,VCAM1,gene,participates in,endothelial activation,biological_process,Shared endothelial adhesion evidence across severe infection settings.
+shared,IL10,gene,participates in,innate immune regulation,biological_process,Shared immunoregulatory host-response context.
+candidemia,Candidemia,disease,engages,fungal host-defense signaling,biological_process,Frames candidemia as a host-defense and source-control state.
+candidemia,CXCL8,gene,supports,neutrophil trafficking,biological_process,Links imported TWAS-style evidence to fungal host-defense biology.
+candidemia,VCAM1,gene,marks,endothelial stress,biological_process,Supports inflammatory adhesion and vascular stress in bloodstream fungal infection.
+candidemia,Losartan,drug,overlaps with,ANGPT2-associated vascular program,pathway,Provides graph-style support for host-directed vascular review.
+candidemia,CLEC7A,gene,participates in,fungal pattern recognition,biological_process,Connects candidemia host response to fungal sensing.
+candidemia,IL10,gene,participates in,immune regulation under fungemia,biological_process,Adds immunoregulatory context to persistent candidemia interpretation.
+shared,Tacrolimus,drug,interacts with,NFATC1,gene,Canonical calcineurin pathway targeting creates direct mechanistic overlap.

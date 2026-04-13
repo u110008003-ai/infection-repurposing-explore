@@ -66,6 +66,38 @@ The current formal mapping layer is designed for deployable provenance:
 
 This means the website runtime reads stable exported mapping tables rather than directly querying external services on every request.
 
+## Local DRKG graph layer
+
+The app now includes a local, queryable DRKG-style evidence subset:
+
+- `research/drkg-local/manifest.json`
+- `research/drkg-local/triples.csv`
+- `lib/drkg-local.ts`
+
+This powers:
+
+- case-level DRKG graph panels in the UI
+- `GET /api/v1/graph/query`
+- `POST /api/v1/graph/query`
+
+Use it as the deployable local graph-evidence layer until you replace the seed triples with a larger exported DRKG subset.
+
+## Twin-state API
+
+The app now exposes a digital-patient style twin-state contract:
+
+- `lib/twin-state.ts`
+- `GET /api/v1/cases/{caseId}/twin-state`
+- `POST /api/v1/cases/{caseId}/twin-state`
+
+The twin-state payload is generated from:
+
+- current case intake
+- normalized phenotypes
+- imported PrediXcan / MetaXcan / TWAS evidence
+- candidate ranking output
+- local DRKG graph evidence
+
 ## Expected file shape
 
 Each imported result file currently expects the following columns:

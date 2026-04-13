@@ -1,0 +1,10 @@
+{
+  "datasets": [
+    {
+      "id": "drkg_local_seed_v1",
+      "label": "Local DRKG-style graph evidence seed",
+      "file": "triples.csv",
+      "note": "Deployable local subset aligned to the DRKG integration direction. Replace with a larger exported DRKG subset when ready."
+    }
+  ]
+}

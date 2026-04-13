@@ -32,7 +32,9 @@ import {
   getLinkedGenesForDrug,
 } from "@/lib/formal-mappings";
 import { getDigitalTwinSummary } from "@/lib/digital-twin";
-import { getDrkgCasePanel, listRepoIntegrations } from "@/lib/repo-integrations";
+import { listRepoIntegrations } from "@/lib/repo-integrations";
+import { buildDrkgGraphPanel } from "@/lib/drkg-local";
+import { buildTwinStateSnapshot } from "@/lib/twin-state";
 
 type PredixcanManifest = {
   datasets: Array<{
@@ -611,7 +613,6 @@ export function analyzeCase(caseId: string, options?: AnalysisOptions) {
     },
     association_visuals: importedEvidence.association_visuals,
     digital_twin: getDigitalTwinSummary(caseRecord.case_type),
-    drkg_panel: getDrkgCasePanel(caseRecord.case_type),
     repo_integrations: listRepoIntegrations(),
     evidence_sources: [
       ...(importedEvidence.evidence_sources ?? []),
@@ -646,6 +647,14 @@ export function analyzeCase(caseId: string, options?: AnalysisOptions) {
         supporting_genes: entry.supporting_genes,
       })),
   ];
+
+  result.drkg_panel = buildDrkgGraphPanel(caseRecord.case_type, [
+    ...result.mechanistic_evidence.host_genes.map((gene) => gene.gene_symbol),
+    ...result.ranked_candidates.slice(0, 3).map((candidate) => candidate.drug_name),
+    caseRecord.case_type === "sepsis" ? "Sepsis" : "Candidemia",
+  ]);
+
+  result.twin_state = buildTwinStateSnapshot(caseId, [], result) ?? undefined;
 
   return saveResult(caseId, result);
 }

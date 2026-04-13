@@ -176,6 +176,43 @@ export type DrkgGraphPanel = {
   }>;
 };
 
+export type GraphEvidenceTriple = {
+  head: string;
+  head_type: string;
+  relation: string;
+  tail: string;
+  tail_type: string;
+  case_type?: CaseType | "shared";
+  rationale: string;
+};
+
+export type TwinStateObservation = {
+  label: string;
+  value: string | number | boolean;
+  source: string;
+};
+
+export type TwinStateSnapshot = {
+  case_id: string;
+  case_type: CaseType;
+  generated_at: string;
+  primary_framework: string;
+  status: "initializing" | "monitoring" | "re-ranking";
+  severity_band: "moderate" | "high" | "critical";
+  trajectory_signal: "stabilizing" | "volatile" | "deteriorating";
+  phenotype_state: string[];
+  host_response_state: string[];
+  active_mechanistic_hypotheses: string[];
+  active_candidates: Array<{
+    drug_id: string;
+    drug_name: string;
+    net_priority_score: number;
+  }>;
+  graph_evidence: GraphEvidenceTriple[];
+  pending_update_triggers: string[];
+  observations: TwinStateObservation[];
+};
+
 export type RepoIntegrationSummary = {
   id: string;
   name: string;
@@ -246,6 +283,7 @@ export type AnalysisResult = {
   digital_twin?: DigitalTwinSummary;
   drkg_panel?: DrkgGraphPanel;
   repo_integrations?: RepoIntegrationSummary[];
+  twin_state?: TwinStateSnapshot;
   evidence_sources?: Array<{
     label: string;
     source_type: string;
