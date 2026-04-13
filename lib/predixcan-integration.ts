@@ -31,6 +31,7 @@ import {
   getFormalMappingProvenance,
   getLinkedGenesForDrug,
 } from "@/lib/formal-mappings";
+import { getDigitalTwinSummary } from "@/lib/digital-twin";
 
 type PredixcanManifest = {
   datasets: Array<{
@@ -608,6 +609,7 @@ export function analyzeCase(caseId: string, options?: AnalysisOptions) {
       pathways: importedEvidence.pathways,
     },
     association_visuals: importedEvidence.association_visuals,
+    digital_twin: getDigitalTwinSummary(caseRecord.case_type),
     evidence_sources: [
       ...(importedEvidence.evidence_sources ?? []),
       ...getFormalMappingProvenance().map((source) => ({

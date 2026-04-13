@@ -149,6 +149,22 @@ export type TissueAssociationVisual = {
   labeled_genes: string[];
 };
 
+export type DigitalTwinLayer = {
+  id: string;
+  title: string;
+  role: string;
+  status: "active" | "planned";
+  sources: string[];
+  note: string;
+};
+
+export type DigitalTwinSummary = {
+  twin_state: "initializing" | "monitoring" | "re-ranking";
+  primary_framework: string;
+  update_mode: string;
+  layers: DigitalTwinLayer[];
+};
+
 export type DrugGeneLink = {
   gene_symbol: string;
   link_type: "direct_target" | "pathway_overlap" | "transcriptomic_rescue";
@@ -207,6 +223,7 @@ export type AnalysisResult = {
     tissues: TissueAssociationVisual[];
     default_tissue: string;
   };
+  digital_twin?: DigitalTwinSummary;
   evidence_sources?: Array<{
     label: string;
     source_type: string;

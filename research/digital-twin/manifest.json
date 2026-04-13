@@ -1,0 +1,65 @@
+{
+  "primaryFramework": "digital-patient style twin engine scaffold",
+  "cases": {
+    "sepsis": {
+      "twinState": "re-ranking",
+      "updateMode": "Longitudinal monitoring with graph re-ranking after each newly normalized bedside update.",
+      "layers": [
+        {
+          "id": "twin-engine",
+          "title": "Patient twin engine",
+          "role": "Digital-patient style graph backbone for patient-state representation and endpoint-aware disease-state tracking.",
+          "status": "active",
+          "sources": ["digital-patient", "TwinWeaver", "DT-GPT"],
+          "note": "This is the closest layer to a real digital twin: it owns the evolving patient state and update loop."
+        },
+        {
+          "id": "mechanism-layer",
+          "title": "Mechanism and prioritization layer",
+          "role": "Combines TxGNN candidate ranking, MetaXcan / PrediXcan evidence, and DRKG-style graph context.",
+          "status": "active",
+          "sources": ["TxGNN", "MetaXcan", "DRKG"],
+          "note": "This layer turns the current disease-state snapshot into ranked host-directed and adjunctive hypotheses."
+        },
+        {
+          "id": "icu-update",
+          "title": "ICU-style update loop",
+          "role": "Future time-updating layer inspired by DT-ICU for continuous severity refresh as new labs and support variables arrive.",
+          "status": "planned",
+          "sources": ["DT-ICU"],
+          "note": "Planned for a later version where patient state changes over time rather than only per submitted case."
+        }
+      ]
+    },
+    "candidemia": {
+      "twinState": "monitoring",
+      "updateMode": "Source-control, host-response, and treatment-context monitoring with iterative reprioritization after each case update.",
+      "layers": [
+        {
+          "id": "twin-engine",
+          "title": "Patient twin engine",
+          "role": "Digital-patient style backbone for evolving disease state, host risk, and treatment trajectory context.",
+          "status": "active",
+          "sources": ["digital-patient", "TwinWeaver", "DT-GPT"],
+          "note": "Frames candidemia as a living state model rather than a one-shot classifier."
+        },
+        {
+          "id": "mechanism-layer",
+          "title": "Mechanism and prioritization layer",
+          "role": "Ranks exploratory candidates using TxGNN plus imported MetaXcan / PrediXcan and DRKG-style mechanistic support.",
+          "status": "active",
+          "sources": ["TxGNN", "MetaXcan", "DRKG"],
+          "note": "Adds host-defense, endothelial stress, and fungal response support to the ranking surface."
+        },
+        {
+          "id": "molecular-layer",
+          "title": "Molecular structure overlay",
+          "role": "Future FungAMR-style protein structure annotations for mapped genes and resistance or hotspot visualization.",
+          "status": "planned",
+          "sources": ["FungAMR"],
+          "note": "Planned export/import path for tertiary-structure overlays and residue-level interpretation."
+        }
+      ]
+    }
+  }
+}

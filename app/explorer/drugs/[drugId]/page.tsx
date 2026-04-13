@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ProteinStructurePanel } from "@/components/infection-explorer/protein-structure-panel";
 import { getDrugWithFormalMappings, getFormalMappingProvenance } from "@/lib/formal-mappings";
+import { getProteinStructureProvenance, getProteinStructuresForGenes } from "@/lib/protein-structures";
 
 export default async function DrugDetailPage({
   params,
@@ -17,6 +19,9 @@ export default async function DrugDetailPage({
   if (!drug) {
     notFound();
   }
+
+  const structures = getProteinStructuresForGenes(drug.linked_genes.map((link) => link.gene_symbol));
+  const structureProvenance = getProteinStructureProvenance();
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-6 py-8">
@@ -102,6 +107,8 @@ export default async function DrugDetailPage({
           ))}
         </div>
       </section>
+
+      <ProteinStructurePanel structures={structures} provenance={structureProvenance} />
 
       <section className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Formal mapping provenance</p>

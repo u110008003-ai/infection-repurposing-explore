@@ -23,6 +23,21 @@ const workflowSteps = [
   "Review a case-ready dashboard with exportable interpretation.",
 ];
 
+const twinStack = [
+  {
+    title: "Patient twin backbone",
+    body: "digital-patient, TwinWeaver, and DT-GPT style framing for evolving patient-state representation rather than one-shot scoring.",
+  },
+  {
+    title: "Mechanism and candidate layer",
+    body: "TxGNN, MetaXcan / PrediXcan, and DRKG-style context feed the disease-state snapshot into ranked hypotheses.",
+  },
+  {
+    title: "Molecular overlay",
+    body: "FungAMR-style structural exports can be rendered as residue-level protein panels next to pathway and drug interpretation.",
+  },
+];
+
 export default function Home() {
   const scenarios = listCaseTypes();
 
@@ -182,6 +197,34 @@ export default function Home() {
                     0{index + 1}
                   </div>
                   <p className="pt-1 text-sm leading-7 text-slate-700">{step}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        </section>
+
+        <section className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+          <article className="rounded-[2rem] border border-[color:var(--color-line)] bg-white p-6 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">Digital twin direction</p>
+            <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
+              The product is now structured as a translational infection twin
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600">
+              The website is no longer framed only as a static repurposing explorer. It now has a clear path
+              toward a patient-state digital twin: evolving case state, mechanism-aware reprioritization, and
+              molecular overlays that can be updated as new data arrive.
+            </p>
+          </article>
+
+          <article className="rounded-[2rem] border border-[color:var(--color-line)] bg-[color:var(--color-panel-soft)] p-6 shadow-sm">
+            <div className="grid gap-3">
+              {twinStack.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-[1.4rem] border border-[color:var(--color-line)] bg-white p-4"
+                >
+                  <h3 className="text-lg font-semibold text-slate-950">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-600">{item.body}</p>
                 </div>
               ))}
             </div>

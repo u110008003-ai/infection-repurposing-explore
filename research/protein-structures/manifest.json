@@ -1,0 +1,76 @@
+{
+  "records": [
+    {
+      "gene_symbol": "STAT1",
+      "protein_name": "Signal transducer and activator of transcription 1",
+      "source": "FungAMR-style exported overlay seed / AlphaFold-like structural context",
+      "structure_model": "STAT1_domain_model_v1",
+      "note": "Highlighted residues approximate interpretable hotspots across the SH2 and DNA-binding regions for host-response review.",
+      "hotspots": [
+        { "residue_label": "T385", "x": 148, "y": 88, "intensity": "supportive" },
+        { "residue_label": "Y701", "x": 294, "y": 118, "intensity": "supportive" },
+        { "residue_label": "K410", "x": 366, "y": 136, "intensity": "neutral" }
+      ]
+    },
+    {
+      "gene_symbol": "IL10",
+      "protein_name": "Interleukin 10",
+      "source": "FungAMR-style exported overlay seed / PDB-style cytokine dimer context",
+      "structure_model": "IL10_cytokine_model_v1",
+      "note": "This overlay frames surface-exposed cytokine interface residues rather than claiming direct therapeutic docking.",
+      "hotspots": [
+        { "residue_label": "R27", "x": 124, "y": 120, "intensity": "supportive" },
+        { "residue_label": "K34", "x": 248, "y": 95, "intensity": "neutral" },
+        { "residue_label": "N45", "x": 392, "y": 138, "intensity": "supportive" }
+      ]
+    },
+    {
+      "gene_symbol": "VCAM1",
+      "protein_name": "Vascular cell adhesion molecule 1",
+      "source": "FungAMR-style exported overlay seed / extracellular domain context",
+      "structure_model": "VCAM1_surface_model_v1",
+      "note": "Residue markers emphasize extracellular adhesion domains relevant to endothelial activation overlays.",
+      "hotspots": [
+        { "residue_label": "D40", "x": 138, "y": 78, "intensity": "supportive" },
+        { "residue_label": "Q242", "x": 274, "y": 122, "intensity": "neutral" },
+        { "residue_label": "K325", "x": 420, "y": 146, "intensity": "caution" }
+      ]
+    },
+    {
+      "gene_symbol": "ANGPT2",
+      "protein_name": "Angiopoietin 2",
+      "source": "FungAMR-style exported overlay seed / receptor-ligand domain model",
+      "structure_model": "ANGPT2_fibrinogen_like_model_v1",
+      "note": "Structure overlay is tuned for endothelial leak biology review and Tie2-related interpretability.",
+      "hotspots": [
+        { "residue_label": "K312", "x": 172, "y": 84, "intensity": "supportive" },
+        { "residue_label": "F371", "x": 296, "y": 116, "intensity": "supportive" },
+        { "residue_label": "N467", "x": 426, "y": 144, "intensity": "neutral" }
+      ]
+    },
+    {
+      "gene_symbol": "NFATC1",
+      "protein_name": "Nuclear factor of activated T-cells 1",
+      "source": "FungAMR-style exported overlay seed / transcription factor model",
+      "structure_model": "NFATC1_regulatory_model_v1",
+      "note": "Hotspots emphasize regulatory and DNA-contact regions relevant to calcineurin-linked modulation.",
+      "hotspots": [
+        { "residue_label": "S259", "x": 148, "y": 88, "intensity": "caution" },
+        { "residue_label": "R439", "x": 286, "y": 126, "intensity": "supportive" },
+        { "residue_label": "K684", "x": 410, "y": 148, "intensity": "neutral" }
+      ]
+    },
+    {
+      "gene_symbol": "CXCL8",
+      "protein_name": "C-X-C motif chemokine ligand 8",
+      "source": "FungAMR-style exported overlay seed / chemokine fold context",
+      "structure_model": "CXCL8_chemokine_model_v1",
+      "note": "This panel shows small cytokine hotspot placement to support fungal host-defense interpretation.",
+      "hotspots": [
+        { "residue_label": "E29", "x": 162, "y": 96, "intensity": "supportive" },
+        { "residue_label": "K64", "x": 272, "y": 118, "intensity": "neutral" },
+        { "residue_label": "R68", "x": 386, "y": 142, "intensity": "supportive" }
+      ]
+    }
+  ]
+}
