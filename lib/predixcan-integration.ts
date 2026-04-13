@@ -654,7 +654,12 @@ export function analyzeCase(caseId: string, options?: AnalysisOptions) {
     caseRecord.case_type === "sepsis" ? "Sepsis" : "Candidemia",
   ]);
 
-  result.twin_state = buildTwinStateSnapshot(caseId, [], result) ?? undefined;
+  result.twin_state = buildTwinStateSnapshot(caseId, {
+    observations: [],
+    existingResult: result,
+    version: 1,
+    updateReason: "analysis-sync",
+  }) ?? undefined;
 
   return saveResult(caseId, result);
 }

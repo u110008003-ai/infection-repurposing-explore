@@ -1,0 +1,14 @@
+relation,description
+activates,Disease or context activates a biological program.
+engages,Disease or gene engages a pathway or biological process.
+associated with,Entity is associated with phenotype, context, or risk.
+participates in,Gene participates in pathway or biological process.
+marks,Gene marks a biological program or phenotype state.
+supports,Gene supports a biological process relevant to the case.
+modulates,Drug modulates gene or pathway activity.
+targets,Drug targets a pathway-level program.
+overlaps with,Drug overlaps with a mechanism or pathway signal.
+interacts with,Drug directly interacts with a molecular target.
+treats,Standard therapy treats a disease node.
+drives,Clinical context drives a disease phenotype.
+constrains,Risk or clinical context constrains candidate feasibility.

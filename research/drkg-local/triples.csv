@@ -1,16 +1,45 @@
 case_type,head,head_type,relation,tail,tail_type,rationale
 sepsis,Sepsis,disease,activates,endothelial activation,biological_process,Supports the vascular leak and capillary dysfunction frame in severe sepsis.
 sepsis,Sepsis,disease,engages,cytokine signaling,biological_process,Connects the disease node to systemic inflammatory amplification.
+sepsis,Sepsis,disease,engages,organ dysfunction,phenotype,Represents the clinical endpoint-facing disease-state layer.
+sepsis,Sepsis,disease,associated with,shock physiology,phenotype,Supports high-acuity sepsis framing in the twin state.
 sepsis,STAT1,gene,participates in,interferon / JAK-STAT signaling,pathway,Links imported host-response evidence to a canonical immune pathway.
+sepsis,STAT1,gene,associated with,innate immune regulation,biological_process,Adds immune-state context to the graph layer.
 sepsis,ANGPT2,gene,marks,vascular leak biology,biological_process,Supports endothelial stress interpretation in shock physiology.
+sepsis,ANGPT2,gene,participates in,endothelial activation,biological_process,Reinforces capillary injury context.
+sepsis,VCAM1,gene,participates in,endothelial activation,biological_process,Provides adhesion and vascular inflammation context.
+sepsis,SELE,gene,participates in,endothelial activation,biological_process,Extends leukocyte adhesion biology.
+sepsis,IL10,gene,participates in,innate immune regulation,biological_process,Supports immunoregulatory host-response interpretation.
+sepsis,CXCL8,gene,supports,neutrophil trafficking,biological_process,Links chemotactic signaling to host-defense tone.
 sepsis,Baricitinib,drug,modulates,STAT1,gene,Connects a prioritized candidate to the JAK-STAT evidence axis.
+sepsis,Baricitinib,drug,targets,interferon / JAK-STAT signaling,pathway,Graph-style drug-pathway edge for host-directed review.
 sepsis,Atorvastatin,drug,overlaps with,VCAM1,gene,Adds endothelial stabilization rationale to the ranked candidate surface.
-shared,VCAM1,gene,participates in,endothelial activation,biological_process,Shared endothelial adhesion evidence across severe infection settings.
-shared,IL10,gene,participates in,innate immune regulation,biological_process,Shared immunoregulatory host-response context.
-candidemia,Candidemia,disease,engages,fungal host-defense signaling,biological_process,Frames candidemia as a host-defense and source-control state.
-candidemia,CXCL8,gene,supports,neutrophil trafficking,biological_process,Links imported TWAS-style evidence to fungal host-defense biology.
-candidemia,VCAM1,gene,marks,endothelial stress,biological_process,Supports inflammatory adhesion and vascular stress in bloodstream fungal infection.
-candidemia,Losartan,drug,overlaps with,ANGPT2-associated vascular program,pathway,Provides graph-style support for host-directed vascular review.
-candidemia,CLEC7A,gene,participates in,fungal pattern recognition,biological_process,Connects candidemia host response to fungal sensing.
-candidemia,IL10,gene,participates in,immune regulation under fungemia,biological_process,Adds immunoregulatory context to persistent candidemia interpretation.
+sepsis,Atorvastatin,drug,overlaps with,endothelial activation,biological_process,Extends vascular protection framing.
+sepsis,Dipyridamole,drug,overlaps with,SELE,gene,Adds thrombo-inflammatory overlap to the graph panel.
+sepsis,Dipyridamole,drug,overlaps with,microvascular stress,biological_process,Supports exploratory vascular rescue interpretation.
 shared,Tacrolimus,drug,interacts with,NFATC1,gene,Canonical calcineurin pathway targeting creates direct mechanistic overlap.
+shared,Tacrolimus,drug,associated with,immunosuppression risk,clinical_risk,Encodes a graph-visible safety liability.
+shared,Losartan,drug,overlaps with,ANGPT2-associated vascular program,pathway,Graph edge for endothelial-stress modulation.
+shared,IL10,gene,participates in,immune regulation,biological_process,Shared immunoregulatory node across infection settings.
+shared,VCAM1,gene,participates in,endothelial activation,biological_process,Shared endothelial activation node across severe infections.
+candidemia,Candidemia,disease,engages,fungal host-defense signaling,biological_process,Frames candidemia as a host-defense and source-control state.
+candidemia,Candidemia,disease,associated with,persistent fungemia,phenotype,Captures the longitudinal bloodstream infection state.
+candidemia,Candidemia,disease,associated with,source control dependence,clinical_context,Encodes line removal and focus control relevance.
+candidemia,CXCL8,gene,supports,neutrophil trafficking,biological_process,Links imported TWAS-style evidence to fungal host-defense biology.
+candidemia,CXCL8,gene,participates in,fungal host-defense signaling,biological_process,Strengthens host-defense pathway context.
+candidemia,CLEC7A,gene,participates in,fungal pattern recognition,biological_process,Connects candidemia host response to fungal sensing.
+candidemia,TLR2,gene,participates in,fungal pattern recognition,biological_process,Extends innate fungal sensing into the graph layer.
+candidemia,VCAM1,gene,marks,endothelial stress,biological_process,Supports inflammatory adhesion and vascular stress in bloodstream fungal infection.
+candidemia,IL10,gene,participates in,immune regulation under fungemia,biological_process,Adds immunoregulatory context to persistent candidemia interpretation.
+candidemia,STAT1,gene,participates in,interferon / JAK-STAT signaling,pathway,Links fungal host response to a canonical immune pathway.
+candidemia,ANGPT2,gene,marks,vascular leak biology,biological_process,Adds endothelial leak context to systemic fungal disease.
+candidemia,Losartan,drug,overlaps with,ANGPT2-associated vascular program,pathway,Provides graph-style support for host-directed vascular review.
+candidemia,Losartan,drug,overlaps with,endothelial stress,biological_process,Reinforces vascular-support interpretation.
+candidemia,Baricitinib,drug,modulates,STAT1,gene,Shows why JAK-linked host modulation may surface despite safety questions.
+candidemia,Baricitinib,drug,associated with,immunosuppression risk,clinical_risk,Preserves graph-visible safety tradeoff in candidemia.
+candidemia,Dipyridamole,drug,overlaps with,microvascular stress,biological_process,Links candidate review to vascular-inflammatory biology.
+candidemia,Echinocandin,therapy,treats,Candidemia,disease,Anchors standard antifungal therapy as the primary disease-directed edge.
+candidemia,Central line,clinical_context,drives,persistent fungemia,phenotype,Represents source-control dependence in the graph layer.
+shared,QT prolongation,clinical_risk,constrains,Tacrolimus,drug,Encodes safety gating logic as a graph-visible concept.
+shared,Renal dysfunction,clinical_risk,constrains,Baricitinib,drug,Supports dose feasibility review from the graph side.
+shared,Azole interaction risk,clinical_risk,constrains,Tacrolimus,drug,Encodes DDI liability relevant to antifungal contexts.

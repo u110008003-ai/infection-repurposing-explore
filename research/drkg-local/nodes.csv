@@ -1,0 +1,40 @@
+node_id,node_type,label
+Sepsis,disease,Sepsis
+Candidemia,disease,Candidemia
+STAT1,gene,STAT1
+ANGPT2,gene,ANGPT2
+VCAM1,gene,VCAM1
+SELE,gene,SELE
+IL10,gene,IL10
+CXCL8,gene,CXCL8
+CLEC7A,gene,CLEC7A
+TLR2,gene,TLR2
+NFATC1,gene,NFATC1
+Baricitinib,drug,Baricitinib
+Atorvastatin,drug,Atorvastatin
+Dipyridamole,drug,Dipyridamole
+Tacrolimus,drug,Tacrolimus
+Losartan,drug,Losartan
+Echinocandin,therapy,Echinocandin
+Central line,clinical_context,Central line
+endothelial activation,biological_process,Endothelial activation
+cytokine signaling,biological_process,Cytokine signaling
+organ dysfunction,phenotype,Organ dysfunction
+shock physiology,phenotype,Shock physiology
+vascular leak biology,biological_process,Vascular leak biology
+innate immune regulation,biological_process,Innate immune regulation
+neutrophil trafficking,biological_process,Neutrophil trafficking
+microvascular stress,biological_process,Microvascular stress
+immune regulation,biological_process,Immune regulation
+fungal host-defense signaling,biological_process,Fungal host-defense signaling
+persistent fungemia,phenotype,Persistent fungemia
+source control dependence,clinical_context,Source control dependence
+fungal pattern recognition,biological_process,Fungal pattern recognition
+immune regulation under fungemia,biological_process,Immune regulation under fungemia
+interferon / JAK-STAT signaling,pathway,Interferon / JAK-STAT signaling
+ANGPT2-associated vascular program,pathway,ANGPT2-associated vascular program
+immunosuppression risk,clinical_risk,Immunosuppression risk
+QT prolongation,clinical_risk,QT prolongation
+Renal dysfunction,clinical_risk,Renal dysfunction
+Azole interaction risk,clinical_risk,Azole interaction risk
+endothelial stress,biological_process,Endothelial stress

@@ -89,8 +89,12 @@ function buildPendingTriggers(caseRecord: ExplorerCase) {
 
 export function buildTwinStateSnapshot(
   caseId: string,
-  extraObservations?: TwinStateObservation[],
-  existingResult?: AnalysisResult | null,
+  options?: {
+    observations?: TwinStateObservation[];
+    existingResult?: AnalysisResult | null;
+    version?: number;
+    updateReason?: string;
+  },
 ): TwinStateSnapshot | null {
   const caseRecord = getCase(caseId);
 
@@ -98,7 +102,7 @@ export function buildTwinStateSnapshot(
     return null;
   }
 
-  const result = existingResult ?? getResult(caseId);
+  const result = options?.existingResult ?? getResult(caseId);
 
   if (!result?.digital_twin) {
     return null;
@@ -118,6 +122,8 @@ export function buildTwinStateSnapshot(
     case_id: caseId,
     case_type: caseRecord.case_type,
     generated_at: new Date().toISOString(),
+    version: options?.version ?? 1,
+    update_reason: options?.updateReason ?? "initialization",
     primary_framework: result.digital_twin.primary_framework,
     status: result.digital_twin.twin_state,
     severity_band: inferSeverityBand(caseRecord),
@@ -136,6 +142,6 @@ export function buildTwinStateSnapshot(
     })),
     graph_evidence: graphEvidence,
     pending_update_triggers: buildPendingTriggers(caseRecord),
-    observations: buildObservations(caseRecord, extraObservations),
+    observations: buildObservations(caseRecord, options?.observations),
   };
 }

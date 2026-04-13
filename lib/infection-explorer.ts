@@ -196,6 +196,8 @@ export type TwinStateSnapshot = {
   case_id: string;
   case_type: CaseType;
   generated_at: string;
+  version: number;
+  update_reason: string;
   primary_framework: string;
   status: "initializing" | "monitoring" | "re-ranking";
   severity_band: "moderate" | "high" | "critical";
@@ -211,6 +213,12 @@ export type TwinStateSnapshot = {
   graph_evidence: GraphEvidenceTriple[];
   pending_update_triggers: string[];
   observations: TwinStateObservation[];
+};
+
+export type TwinStateTimeline = {
+  case_id: string;
+  latest_snapshot: TwinStateSnapshot;
+  history: TwinStateSnapshot[];
 };
 
 export type RepoIntegrationSummary = {

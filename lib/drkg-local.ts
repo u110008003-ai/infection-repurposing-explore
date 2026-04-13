@@ -13,6 +13,17 @@ type DrkgManifest = {
   }>;
 };
 
+type GraphNode = {
+  node_id: string;
+  node_type: string;
+  label: string;
+};
+
+type GraphRelation = {
+  relation: string;
+  description: string;
+};
+
 const drkgRoot = path.join(process.cwd(), "research", "drkg-local");
 
 function parseDelimitedFile(input: string) {
@@ -66,6 +77,7 @@ function readTriples(): GraphEvidenceTriple[] {
 export function queryLocalDrkg(params: {
   caseType?: CaseType;
   entities?: string[];
+  relation?: string;
   limit?: number;
 }) {
   const entities = new Set((params.entities ?? []).map((entity) => entity.toLowerCase()));
@@ -80,7 +92,10 @@ export function queryLocalDrkg(params: {
       entities.has(triple.head.toLowerCase()) ||
       entities.has(triple.tail.toLowerCase());
 
-    return matchesCaseType && matchesEntity;
+    const matchesRelation =
+      !params.relation || triple.relation.toLowerCase() === params.relation.toLowerCase();
+
+    return matchesCaseType && matchesEntity && matchesRelation;
   });
 
   return triples.slice(0, params.limit ?? 12);
@@ -104,4 +119,30 @@ export function buildDrkgGraphPanel(caseType: CaseType, entities: string[]): Drk
 
 export function getDrkgDatasetInfo() {
   return readManifest().datasets;
+}
+
+export function getDrkgNodes() {
+  const manifest = readManifest();
+  const dataset = manifest.datasets.find((entry) => entry.id.includes("nodes"));
+
+  if (!dataset) {
+    return [] as GraphNode[];
+  }
+
+  return parseDelimitedFile(
+    readFileSync(path.join(drkgRoot, dataset.file), "utf8"),
+  ) as GraphNode[];
+}
+
+export function getDrkgRelations() {
+  const manifest = readManifest();
+  const dataset = manifest.datasets.find((entry) => entry.id.includes("relations"));
+
+  if (!dataset) {
+    return [] as GraphRelation[];
+  }
+
+  return parseDelimitedFile(
+    readFileSync(path.join(drkgRoot, dataset.file), "utf8"),
+  ) as GraphRelation[];
 }

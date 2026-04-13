@@ -2,9 +2,21 @@
   "datasets": [
     {
       "id": "drkg_local_seed_v1",
-      "label": "Local DRKG-style graph evidence seed",
+      "label": "Local exported DRKG-style graph subset",
       "file": "triples.csv",
-      "note": "Deployable local subset aligned to the DRKG integration direction. Replace with a larger exported DRKG subset when ready."
+      "note": "Deployable local subset aligned to a DRKG export pattern. Includes triples, nodes, and relations tables for local query and UI evidence generation."
+    },
+    {
+      "id": "drkg_local_nodes_v1",
+      "label": "Local exported DRKG-style node registry",
+      "file": "nodes.csv",
+      "note": "Node registry for the local DRKG subset."
+    },
+    {
+      "id": "drkg_local_relations_v1",
+      "label": "Local exported DRKG-style relation registry",
+      "file": "relations.csv",
+      "note": "Relation registry for the local DRKG subset."
     }
   ]
 }
